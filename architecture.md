@@ -26,6 +26,7 @@ Design patterns are the structural responses that implement the principles.
 | Pattern | Brief | Full Definition |
 |---------|-------|------------------|
 | **Byzantine model design pattern** | Treats every model invocation as a Byzantine component capable of arbitrary adversarial behavior; trust is established only through external mechanisms. | [→](/design%20patterns/byzantine-model-design-pattern.md) |
+| **Local mediation design pattern** | All tool use by stochastic agents must pass through the local framework's deterministic mediation layer; provider-side connectors that act without local visibility are excluded. | [→](/design%20patterns/local-mediation-design-pattern.md) |
 | **Write-ahead audit** | Commit the invocation record before executing the authorized action, ensuring no unrecorded state changes. | [→](/design%20patterns/write-ahead-audit.md) |
 | **Trusted-path logging** | Write log entries through a channel outside the model's authority, to storage the model cannot modify. | [→](/design%20patterns/trusted-path-logging.md) |
 | **Hash-chained logs** | Append-only logs where each entry is cryptographically bound to its predecessor. | [→](/design%20patterns/hash-chained-logs.md) |
