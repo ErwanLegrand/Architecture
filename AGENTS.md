@@ -9,8 +9,7 @@ A reference framework for **secure agentic architecture**: the security principl
 Authoritative entry points:
 
 - [README.md](/README.md) — orientation.
-- [architecture.md](/architecture.md) — normative index with briefs and links to full definitions.
-- [agent-types.md](/agent-types.md) — taxonomy of agent types referenced by the primitives.
+- [architecture.md](/architecture.md) — normative index with briefs and links to full definitions. Its "Architectural Primitives" section carries the agent taxonomy (the two-axis classification) and links to the per-primitive files under `architectural primitives/`.
 
 ## Normative wording
 
@@ -28,7 +27,6 @@ Definitions in this repository are **normative**. They are cited from other comp
 /design patterns/            # one file per pattern
 /architectural primitives/   # one file per primitive
 architecture.md              # index with briefs and links
-agent-types.md               # agent taxonomy
 README.md                    # repository overview
 AGENTS.md                    # this file
 ```
@@ -45,7 +43,13 @@ Conventions:
 2. Write the full normative definition; keep it focused on this one concept.
 3. Add a row to the corresponding table in `architecture.md` with a single-sentence brief and a `[→](...)` link to the new file.
 4. If the new concept is referenced by other definitions, update those files to link to it.
-5. Verify all Markdown links resolve (spaces → `%20`, kebab-case filenames).
+5. Verify all Markdown links resolve. Link targets use `%20` for the spaces in directory names, but the filesystem paths contain literal spaces — decode before testing. Run this from the repo root; it prints any dangling target:
+
+   ```bash
+   grep -rhoE '\]\(/[^)]+\)' --include='*.md' . \
+     | sed -E 's/^\]\(\/(.*)\)$/\1/; s/%20/ /g' \
+     | while IFS= read -r p; do [ -e "$p" ] || echo "BROKEN: $p"; done
+   ```
 
 ## Style
 
@@ -53,7 +57,7 @@ Conventions:
 - Plain prose; no marketing tone. Definitions read as specification text, not as a blog post.
 - Use the long-dash `—` (not `--`) consistent with existing files.
 - Italics for term introductions (`*suborn*`); bold for enumerated property names in bullet lists (`**Output validation.**`).
-- Quote model behavior in the third person: "the model", not "Claude" / "GPT" / "the LLM" (except where "LLM" is unavoidable as in *least LLM principle*).
+- Quote model behavior in the third person: "the model", not "Claude" / "GPT". Prefer the general "model" over "LLM"; use "LLM" / "VLM" / "language model" only when a statement is specific to that model class (e.g. contrasting instruction-following models with classifiers or embedding models).
 
 ## Commits
 
