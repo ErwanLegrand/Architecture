@@ -1,8 +1,8 @@
 # Deterministic agents (computational nature axis)
 
-Agents implemented as pure code with deterministic behavior: given the same input, they produce the same output and the same side effects, modulo declared sources of nondeterminism (clock, RNG with recorded seed, etc.). They are not language-model-mediated.
+Agents implemented as pure code with deterministic behavior: given the same input, they produce the same output and the same side effects, modulo declared sources of nondeterminism (clock, RNG with recorded seed, etc.). They are not model-mediated.
 
-Deterministic agents participate in the orchestration graph as peers of stochastic agents — same node interface, same lifecycle, same place in the FSM — but without the probabilistic and adversarial-input properties that make stochastic agents subject to the suborned model principle. In a graph or FSM, any step that does not require probabilistic inference should be a deterministic agent; this is the practical expression of the least LLM principle at the node level.
+Deterministic agents participate in the orchestration graph as peers of stochastic agents — same node interface, same lifecycle, same place in the FSM — but without the probabilistic and adversarial-input properties that make stochastic agents subject to the suborned model principle. In a graph or FSM, any step that does not require probabilistic inference should be a deterministic agent; this is the practical expression of the least model principle at the node level.
 
 Deterministic agents remain subject to:
 

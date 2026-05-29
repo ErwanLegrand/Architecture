@@ -10,3 +10,5 @@ In practice:
 - **Mutual suspicion between agents.** In multi-agent systems, agent B treats agent A's output as adversarial input, not as a trusted upstream signal.
 
 The pattern is modeled on classical Byzantine fault tolerance, with the substantive difference that the assumed adversarial fraction is one: every model invocation is treated as Byzantine by default, not merely some bounded subset.
+
+**Scope.** The pattern's *structure* — treat output as adversarial, validate externally, derive trust through mechanisms outside the model — applies to every model class, not only language models. The *specifics* of validation differ by class: JSON schema and policy checks for LLM output; confidence thresholds and consistency checks across independent models for classifiers; bounded use (never as control-flow input, only as retrieval ranking) for embeddings; transcript sanitization and bounded interpretation for speech-to-text. In every case, the deterministic boundary downstream of the model is where the pattern is implemented.
