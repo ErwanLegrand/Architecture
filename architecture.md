@@ -40,15 +40,19 @@ Design patterns are the structural responses that implement the principles.
 
 Architectural primitives are the building blocks the framework composes.
 
-Agents are nodes in the orchestration graph or finite-state machine. They are classified along two orthogonal axes:
+Agents are nodes in the orchestration graph or finite-state machine. They are classified along three orthogonal axes:
 
-- **Scope axis.** How narrowly the agent's responsibility is defined.
-- **Computational nature axis.** Whether the agent's computation is stochastic (model-mediated) or deterministic (pure code).
+- **Scope axis.** How narrowly the agent's responsibility is defined. The framework admits only *specialist agents* on this axis; generalist agents are excluded by design.
+- **Computational nature axis.** Whether the agent's computation is *stochastic* (model-mediated) or *deterministic* (pure code).
+- **Trust-position axis.** Where the agent sits in the data-flow trust hierarchy: *Core* (holds sensitive capabilities, never exposed to untrusted data), *Edge* (exposed to untrusted data, holds no sensitive capabilities), or *Bridge* (performs validated declassification from Untrusted to Trusted). This axis is the architectural expression of the role-typed agent separation design pattern.
 
-The framework admits only specialist agents by design — generalist agents are excluded — but specialists may be either stochastic or deterministic depending on which member of the computational-nature axis they occupy. A *specialist stochastic agent* is a narrow model-mediated node; a *specialist deterministic agent* is a narrow code-only node. Both participate as peers in the same orchestration graph, with the same node interface and the same lifecycle, but they carry different obligations under the principles defined above.
+The axes are orthogonal: an agent's position on one does not determine its position on the others. A concrete agent is specified by a triple — for example, *a specialist deterministic Bridge agent* (a narrow code-only node that performs declassification) or *a specialist stochastic Edge agent* (a narrow model-mediated node that processes untrusted input without holding sensitive capabilities). Each combination carries different obligations under the principles and patterns defined above.
 
 | Primitive | Brief | Full Definition |
 |-----------|-------|------------------|
 | **Specialist agents** | Nodes with narrow, well-defined scopes of responsibility and restricted capability footprint. | [→](/architectural%20primitives/specialist-agents.md) |
 | **Stochastic agents** | Agents whose computation involves probabilistic model inference of any model class; subject to the Byzantine model pattern, and to the suborned model principle where instruction-following. | [→](/architectural%20primitives/stochastic-agents.md) |
 | **Deterministic agents** | Pure code agents with deterministic behavior; same interface as stochastic agents but without probabilistic or adversarial-input behavior. | [→](/architectural%20primitives/deterministic-agents.md) |
+| **Core agents** | Hold sensitive capabilities and produce plans, decisions, and actions; never exposed to `Untrusted` data. Generalization of the dual-LLM P-LLM. | [→](/architectural%20primitives/core-agents.md) |
+| **Edge agents** | Exposed to external `Untrusted` data, which they transform; hold no sensitive capabilities and emit only `Untrusted` outputs. Generalization of the dual-LLM Q-LLM. | [→](/architectural%20primitives/edge-agents.md) |
+| **Bridge agents** | Perform validated, logged declassification from `Untrusted` to `Trusted` of restricted type; the only path by which Edge-produced content reaches Core agents. | [→](/architectural%20primitives/bridge-agents.md) |
