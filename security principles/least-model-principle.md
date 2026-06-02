@@ -1,3 +1,12 @@
+---
+id: least-model-principle
+title: Least Model principle
+type: principle
+domains: [security]
+status: stable
+composes_with: ["[[least-privilege-principle]]"]
+---
+
 # Least Model principle
 
 The use of model-mediated decision-making is minimized in both extent and authority. Each component is implemented in deterministic code unless probabilistic inference is genuinely required, and each model invocation is given the narrowest scope sufficient to perform its task. The principle applies to all classes of learned models — language models, vision-language models, embedding models, classifiers, speech-to-text, generative image and audio models, and others — because every model invocation is an attack surface that deterministic code does not have.

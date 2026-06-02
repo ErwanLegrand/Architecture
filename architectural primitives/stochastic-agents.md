@@ -1,3 +1,11 @@
+---
+id: stochastic-agents
+title: Stochastic agents (computational nature axis)
+type: primitive
+domains: [security]
+status: stable
+---
+
 # Stochastic agents (computational nature axis)
 
 Agents whose computation involves probabilistic model inference. A stochastic agent's output is sampled from a probability distribution conditioned on its input; the same input may produce different outputs across invocations. The model class may be a language model, vision-language model, embedding model, classifier, speech-to-text, or any other learned model; the stochastic-agent designation applies uniformly.

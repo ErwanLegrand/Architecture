@@ -1,3 +1,13 @@
+---
+id: specialist-agents
+title: Specialist agents (scope axis)
+type: primitive
+domains: [security, performance]
+status: stable
+enables: ["[[least-privilege-principle]]"]
+composes_with: ["[[byzantine-model-design-pattern]]"]
+---
+
 # Specialist agents (scope axis)
 
 Nodes bound to narrow, well-defined scopes of responsibility, with capability and authority restricted to those required for that scope. The term emphasizes *scope*, not *competence*; the security argument rests on what a specialist agent is structurally incapable of doing, not on what it is skilled at doing. The property applies to both stochastic and deterministic agents.

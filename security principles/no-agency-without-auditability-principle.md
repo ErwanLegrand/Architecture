@@ -1,3 +1,12 @@
+---
+id: no-agency-without-auditability-principle
+title: No agency without auditability principle
+type: principle
+domains: [security]
+status: stable
+composes_with: ["[[defense-in-depth]]", "[[byzantine-model-design-pattern]]"]
+---
+
 # No agency without auditability principle
 
 No agent invocation may cause a state change in the system or its environment unless the framework has first committed a forensically sufficient record of that invocation. The principle applies to every agent in the orchestration graph — stochastic agents of any model class and deterministic agents alike.

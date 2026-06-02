@@ -1,3 +1,13 @@
+---
+id: local-mediation-design-pattern
+title: Local mediation design pattern
+type: pattern
+domains: [security]
+status: stable
+enables: ["[[byzantine-model-design-pattern]]"]
+constrains: ["[[stochastic-agents]]"]
+---
+
 # Local mediation design pattern
 
 The structural constraint that all tool use by stochastic agents must pass through the local framework's deterministic mediation layer. *Provider-side connectors* — model-vendor features that allow the model to invoke external services directly from the vendor's infrastructure, without the local framework seeing the request — are incompatible with the framework's security guarantees and excluded by this pattern.
