@@ -68,6 +68,42 @@ Controlled verb vocabulary (forward forms only; use nothing else):
 - **semantic** — `defines`, `describes`, `models`, `alias_of`, `related_to`
 - **forbidden** — `affects`, `uses`, `helps`, "is related to" (too vague to be an edge)
 
+### Visualizing the graph in Obsidian (Breadcrumbs)
+
+Relations are authored forward-only; the inverse edges are produced by the [Breadcrumbs](https://github.com/SkepticMystic/breadcrumbs) plugin's *implied relations*, so they never appear in any file. To set this up after opening the repo as an Obsidian vault:
+
+1. Install **Breadcrumbs** (Community Plugins).
+2. **Settings → Edge Fields**: create one field per forward verb in the vocabulary above, and one per inverse label in the table below.
+3. **Settings → Edge Field Groups**: assign each forward verb and its inverse to *opposite* groups (the suggested `up`/`down` labels below are cosmetic — only the forward↔inverse pairing is load-bearing). Put symmetric relations in a single `same` group.
+4. **Settings → Implied Relations**: enable the *opposite-direction* implication so every forward edge auto-implies its inverse. This is what makes e.g. `stochastic-agents` show `constrained_by ← local-mediation` without that edge being written anywhere.
+5. *(Optional)* Install **Dataview** + **Graph Link Types** to render the relation verb as a label on each edge in the native graph view.
+
+The forward → inverse pairing (also the table the ingestion loader uses to synthesize inverse edges, so the graph DB matches Breadcrumbs):
+
+| Forward | Inverse | Suggested dir |
+|---|---|---|
+| `implements` | `implemented_by` | up |
+| `instantiates` | `instantiated_by` | up |
+| `extends` | `extended_by` | up |
+| `specializes` | `generalizes` | up |
+| `abstracts` | `abstracted_by` | down |
+| `decomposes_into` | `component_of` | down |
+| `enables` | `enabled_by` | up |
+| `enhances` | `enhanced_by` | up |
+| `reduces` | `reduced_by` | down |
+| `amplifies` / `stabilizes` / `simplifies` | `amplified_by` / `stabilized_by` / `simplified_by` | up |
+| `requires` | `required_by` | up |
+| `depends_on` | `depended_on_by` | up |
+| `constrains` | `constrained_by` | down |
+| `limits` / `isolates` | `limited_by` / `isolated_by` | down |
+| `protects` | `protected_by` | down |
+| `enforces` | `enforced_by` | down |
+| `weakens` | `weakened_by` | down |
+| `defines` / `describes` / `models` | `defined_by` / `described_by` / `modeled_by` | up |
+| `composes_with` | `composes_with` (self) | same |
+| `conflicts_with` / `trades_off_with` / `competes_with` | self | same |
+| `alias_of` / `related_to` | self | same |
+
 ## Adding a new principle, pattern, or primitive
 
 1. Create a file in the matching subdirectory with kebab-case name and H1 title.
