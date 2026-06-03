@@ -4,6 +4,8 @@ title: Replay-able invocation records
 type: pattern
 domains: [security]
 status: stable
+brief: "Capture full invocation state enabling deterministic re-execution for forensic analysis."
+order: 8
 implements: ["[[no-agency-without-auditability-principle]]"]
 ---
 

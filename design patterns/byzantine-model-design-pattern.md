@@ -4,6 +4,8 @@ title: Byzantine model design pattern
 type: pattern
 domains: [security]
 status: stable
+brief: "Treats every model invocation as a Byzantine component capable of arbitrary adversarial behavior; trust is established only through external mechanisms."
+order: 1
 implements: ["[[suborned-model-principle]]"]
 ---
 

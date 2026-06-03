@@ -4,6 +4,8 @@ title: Role-typed agent separation design pattern
 type: pattern
 domains: [security]
 status: stable
+brief: "Generalizes the dual-LLM pattern to N agents typed by trust position — Core, Edge, Bridge — with a declared topology in which Edge → Bridge → Core is the only path to Core."
+order: 4
 composes_with: ["[[provenance-tracking-design-pattern]]"]
 decomposes_into: ["[[core-agents]]", "[[edge-agents]]", "[[bridge-agents]]"]
 ---

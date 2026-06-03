@@ -4,6 +4,8 @@ title: Least Model principle
 type: principle
 domains: [security]
 status: stable
+brief: "Minimize model-mediated decision-making in both extent and authority, across all classes of learned models."
+order: 5
 composes_with: ["[[least-privilege-principle]]"]
 ---
 

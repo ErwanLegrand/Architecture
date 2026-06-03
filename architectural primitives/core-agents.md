@@ -4,6 +4,8 @@ title: Core agents (trust-position axis)
 type: primitive
 domains: [security]
 status: stable
+brief: "Hold sensitive capabilities and produce plans, decisions, and actions; never exposed to `Untrusted` data. Generalization of the dual-LLM P-LLM."
+order: 4
 instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
 depends_on: ["[[bridge-agents]]"]
 ---

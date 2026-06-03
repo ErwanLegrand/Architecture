@@ -4,6 +4,8 @@ title: Trusted-path logging
 type: pattern
 domains: [security]
 status: stable
+brief: "Write log entries through a channel outside the model's authority, to storage the model cannot modify."
+order: 6
 enforces: ["[[no-agency-without-auditability-principle]]"]
 ---
 

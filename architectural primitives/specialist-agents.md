@@ -4,6 +4,8 @@ title: Specialist agents (scope axis)
 type: primitive
 domains: [security, performance]
 status: stable
+brief: "Nodes with narrow, well-defined scopes of responsibility and restricted capability footprint."
+order: 1
 enables: ["[[least-privilege-principle]]"]
 composes_with: ["[[byzantine-model-design-pattern]]"]
 ---

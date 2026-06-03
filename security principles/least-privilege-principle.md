@@ -4,6 +4,8 @@ title: Least privilege principle
 type: principle
 domains: [security]
 status: stable
+brief: "Every component is granted the minimum authority required to perform its function."
+order: 2
 ---
 
 # Least privilege principle

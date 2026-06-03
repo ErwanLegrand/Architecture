@@ -4,6 +4,8 @@ title: Bridge agents (trust-position axis)
 type: primitive
 domains: [security]
 status: stable
+brief: "Perform validated, logged declassification from `Untrusted` to `Trusted` of restricted type; the only path by which Edge-produced content reaches Core agents."
+order: 6
 instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
 ---
 

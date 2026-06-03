@@ -4,6 +4,8 @@ title: Stochastic agents (computational nature axis)
 type: primitive
 domains: [security]
 status: stable
+brief: "Agents whose computation involves probabilistic model inference of any model class; subject to the Byzantine model pattern, and to the suborned model principle where instruction-following."
+order: 2
 ---
 
 # Stochastic agents (computational nature axis)

@@ -4,6 +4,8 @@ title: Kerckhoffs's principle
 type: principle
 domains: [security]
 status: stable
+brief: "Security must not depend on secrecy of design or implementation; only operational secrets (keys, credentials, tokens) may be confidential."
+order: 1
 ---
 
 # Kerckhoffs's principle

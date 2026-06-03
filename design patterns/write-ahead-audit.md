@@ -4,6 +4,8 @@ title: Write-ahead audit
 type: pattern
 domains: [security]
 status: stable
+brief: "Commit the invocation record before executing the authorized action, ensuring no unrecorded state changes."
+order: 5
 implements: ["[[no-agency-without-auditability-principle]]"]
 ---
 

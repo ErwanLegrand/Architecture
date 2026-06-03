@@ -4,6 +4,8 @@ title: Hash-chained logs
 type: pattern
 domains: [security]
 status: stable
+brief: "Append-only logs where each entry is cryptographically bound to its predecessor."
+order: 7
 protects: ["[[no-agency-without-auditability-principle]]"]
 ---
 

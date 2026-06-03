@@ -4,6 +4,8 @@ title: Defense in depth
 type: principle
 domains: [security]
 status: stable
+brief: "Security properties are enforced by multiple independent layers such that the failure of any single layer does not compromise the system."
+order: 3
 ---
 
 # Defense in depth

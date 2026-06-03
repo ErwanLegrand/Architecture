@@ -4,6 +4,8 @@ title: Edge agents (trust-position axis)
 type: primitive
 domains: [security]
 status: stable
+brief: "Exposed to external `Untrusted` data, which they transform; hold no sensitive capabilities and emit only `Untrusted` outputs. Generalization of the dual-LLM Q-LLM."
+order: 5
 instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
 depends_on: ["[[bridge-agents]]"]
 ---

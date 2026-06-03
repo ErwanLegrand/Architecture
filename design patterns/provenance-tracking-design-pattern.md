@@ -4,6 +4,8 @@ title: Provenance tracking design pattern
 type: pattern
 domains: [security]
 status: stable
+brief: "Every value carries a compile-time `Trusted`/`Untrusted` provenance label; sensitive operations require `Trusted` operands, and audited declassification is the only promotion path."
+order: 3
 enables: ["[[role-typed-agent-separation-design-pattern]]"]
 ---
 

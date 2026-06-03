@@ -4,6 +4,8 @@ title: Suborned model principle
 type: principle
 domains: [security]
 status: stable
+brief: "Any language model must be assumed to be induced into faithful cooperation with adversarial instructions in its input."
+order: 4
 ---
 
 # Suborned model principle
