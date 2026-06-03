@@ -6,7 +6,7 @@ domains: [security]
 status: stable
 brief: "No agent invocation may cause a state change without first committing a forensically sufficient record of that invocation."
 order: 6
-composes_with: ["[[defense-in-depth]]", "[[byzantine-model-design-pattern]]"]
+composes_with: ["[[byzantine-model-design-pattern]]"]
 ---
 
 # No agency without auditability principle
