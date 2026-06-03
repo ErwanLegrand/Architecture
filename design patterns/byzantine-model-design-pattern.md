@@ -11,7 +11,7 @@ implements: ["[[suborned-model-principle]]"]
 
 # Byzantine model design pattern
 
-The design response that follows from the suborned model principle. Every language model invocation is treated as a Byzantine component in the sense of distributed systems: capable of arbitrary, adversarial behavior, including coordinated misbehavior with other components. Trust in any model output is established only through mechanisms external to the model itself.
+The design response that follows from the suborned model principle. Every model invocation is treated as a Byzantine component in the sense of distributed systems: capable of arbitrary, adversarial behavior, including coordinated misbehavior with other components. Trust in any model output is established only through mechanisms external to the model itself.
 
 In practice:
 
