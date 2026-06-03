@@ -1,0 +1,6 @@
+{
+  "userIgnoreFilters": [
+    "/(^|\\/)AGENTS\\.md$/",
+    "/(^|\\/)README\\.md$/"
+  ]
+}

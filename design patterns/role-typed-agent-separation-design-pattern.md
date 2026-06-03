@@ -1,3 +1,15 @@
+---
+id: role-typed-agent-separation-design-pattern
+title: Role-typed agent separation design pattern
+type: pattern
+domains: [security]
+status: stable
+brief: "Generalizes the dual-LLM pattern to N agents typed by trust position — Core, Edge, Bridge — with a declared topology in which Edge → Bridge → Core is the only path to Core."
+order: 4
+composes_with: ["[[provenance-tracking-design-pattern]]"]
+decomposes_into: ["[[core-agents]]", "[[edge-agents]]", "[[bridge-agents]]"]
+---
+
 # Role-typed agent separation design pattern
 
 The structural generalization of Simon Willison's dual-LLM pattern (April 2023). Dual-LLM separates a *Privileged LLM* (P-LLM), which produces plans but never sees untrusted data, from a *Quarantined LLM* (Q-LLM), which reads untrusted data but holds no capabilities. The pattern generalizes that two-node arrangement to N agents organized by their role in the trust hierarchy.

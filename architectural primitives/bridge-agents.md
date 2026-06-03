@@ -1,3 +1,14 @@
+---
+id: bridge-agents
+title: Bridge agents (trust-position axis)
+type: primitive
+domains: [security]
+status: stable
+brief: "Perform validated, logged declassification from `Untrusted` to `Trusted` of restricted type; the only path by which Edge-produced content reaches Core agents."
+order: 6
+instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
+---
+
 # Bridge agents (trust-position axis)
 
 Agents that perform validated declassification: they consume `Untrusted` values and produce `Trusted` values of restricted type, through named, logged declassification functions. Bridge agents make explicit the mechanism that dual-LLM left implicit — the only path by which Edge-produced content reaches Core agents. The trust-position axis is the architectural expression of the [role-typed agent separation design pattern](/design%20patterns/role-typed-agent-separation-design-pattern.md).

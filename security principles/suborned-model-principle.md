@@ -1,3 +1,13 @@
+---
+id: suborned-model-principle
+title: Suborned model principle
+type: principle
+domains: [security]
+status: stable
+brief: "Any language model must be assumed to be induced into faithful cooperation with adversarial instructions in its input."
+order: 4
+---
+
 # Suborned model principle
 
 Any language model that processes input must be assumed to be induced into faithful cooperation with whatever adversarial instructions that input may carry — including instructions embedded in tool outputs, retrieved documents, prior conversation turns, or upstream model responses.

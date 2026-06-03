@@ -1,3 +1,14 @@
+---
+id: deterministic-agents
+title: Deterministic agents (computational nature axis)
+type: primitive
+domains: [security]
+status: stable
+brief: "Pure code agents with deterministic behavior; same interface as stochastic agents but without probabilistic or adversarial-input behavior."
+order: 3
+instantiates: ["[[least-model-principle]]"]
+---
+
 # Deterministic agents (computational nature axis)
 
 Agents implemented as pure code with deterministic behavior: given the same input, they produce the same output and the same side effects, modulo declared sources of nondeterminism (clock, RNG with recorded seed, etc.). They are not model-mediated.

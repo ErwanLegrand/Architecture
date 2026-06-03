@@ -1,3 +1,13 @@
+---
+id: kerckhoffs-principle
+title: Kerckhoffs's principle
+type: principle
+domains: [security]
+status: stable
+brief: "Security must not depend on secrecy of design or implementation; only operational secrets (keys, credentials, tokens) may be confidential."
+order: 1
+---
+
 # Kerckhoffs's principle
 
 The security of the system must not depend on the secrecy of its design or implementation, including its AI components. All security properties must hold when the framework's source code, configuration, architecture, model weights, model identity and version, system prompts, and prompt templates are fully known to an adversary. Only operational secrets — keys, credentials, tokens — may be confidential.

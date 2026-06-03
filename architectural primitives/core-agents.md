@@ -1,3 +1,15 @@
+---
+id: core-agents
+title: Core agents (trust-position axis)
+type: primitive
+domains: [security]
+status: stable
+brief: "Hold sensitive capabilities and produce plans, decisions, and actions; never exposed to `Untrusted` data. Generalization of the dual-LLM P-LLM."
+order: 4
+instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
+depends_on: ["[[bridge-agents]]"]
+---
+
 # Core agents (trust-position axis)
 
 Agents that hold sensitive capabilities and produce decisions, plans, and actions, and are *never* exposed to `Untrusted` data. Core agents are the structural generalization of the Privileged LLM (P-LLM) in the dual-LLM pattern. The trust-position axis is the architectural expression of the [role-typed agent separation design pattern](/design%20patterns/role-typed-agent-separation-design-pattern.md).
