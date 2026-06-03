@@ -1,339 +1,872 @@
 {
-  "is_dirty": false,
-  "edge_fields": [
-    {
-      "label": "up"
-    },
-    {
-      "label": "down"
-    },
-    {
-      "label": "same"
-    },
-    {
-      "label": "next"
-    },
-    {
-      "label": "prev"
-    }
-  ],
-  "edge_field_groups": [
-    {
-      "label": "ups",
-      "fields": [
-        "up"
-      ]
-    },
-    {
-      "label": "downs",
-      "fields": [
-        "down"
-      ]
-    },
-    {
-      "label": "sames",
-      "fields": [
-        "same"
-      ]
-    },
-    {
-      "label": "nexts",
-      "fields": [
-        "next"
-      ]
-    },
-    {
-      "label": "prevs",
-      "fields": [
-        "prev"
-      ]
-    }
-  ],
-  "implied_relations": {
-    "transitive": [
-      {
-        "name": "",
-        "rounds": 1,
-        "chain": [
-          {
-            "field": "up"
-          }
-        ],
-        "close_field": "down",
-        "close_reversed": true
-      },
-      {
-        "name": "",
-        "rounds": 1,
-        "chain": [
-          {
-            "field": "down"
-          }
-        ],
-        "close_field": "up",
-        "close_reversed": true
-      },
-      {
-        "name": "",
-        "rounds": 1,
-        "chain": [
-          {
-            "field": "same"
-          }
-        ],
-        "close_field": "same",
-        "close_reversed": true
-      },
-      {
-        "name": "",
-        "rounds": 1,
-        "chain": [
-          {
-            "field": "next"
-          }
-        ],
-        "close_field": "prev",
-        "close_reversed": true
-      },
-      {
-        "name": "",
-        "rounds": 1,
-        "chain": [
-          {
-            "field": "prev"
-          }
-        ],
-        "close_field": "next",
-        "close_reversed": true
-      }
-    ]
-  },
-  "self_is_sibling": [
-    "same"
-  ],
-  "explicit_edge_sources": {
-    "typed_link": {},
-    "list_note": {
-      "default_neighbour_field": ""
-    },
-    "tag_note": {
-      "default_field": "up",
-      "default_sibling_field": ""
-    },
-    "regex_note": {
-      "default_field": "up"
-    },
-    "dendron_note": {
-      "enabled": false,
-      "delimiter": ".",
-      "default_field": "up",
-      "default_sibling_field": "",
-      "display_trimmed": false
-    },
-    "johnny_decimal_note": {
-      "enabled": false,
-      "delimiter": ".",
-      "default_field": "up",
-      "default_sibling_field": ""
-    },
-    "date_note": {
-      "enabled": false,
-      "date_format": "yyyy-MM-dd",
-      "default_field": "next",
-      "stretch_to_existing": false,
-      "week_start": "monday",
-      "week": {
-        "enabled": false,
-        "date_format": "kkkk-'W'WW",
-        "folder": "",
-        "next_field": "next",
-        "up_field": "up"
-      },
-      "month": {
-        "enabled": false,
-        "date_format": "yyyy-MM",
-        "folder": "",
-        "next_field": "next",
-        "up_field": "up"
-      },
-      "quarter": {
-        "enabled": false,
-        "date_format": "yyyy-'Q'q",
-        "folder": "",
-        "next_field": "next",
-        "up_field": "up"
-      },
-      "year": {
-        "enabled": false,
-        "date_format": "yyyy",
-        "folder": "",
-        "next_field": "next",
-        "up_field": "up"
-      }
-    },
-    "traverse_note": {
-      "default_field": "up"
-    }
-  },
-  "views": {
-    "page": {
-      "all": {
-        "sticky": false
-      },
-      "trail": {
-        "enabled": true,
-        "format": "grid",
-        "selection": "all",
-        "default_depth": 999,
-        "no_path_message": "",
-        "show_controls": true,
-        "merge_fields": false,
-        "field_group_labels": [
-          "ups"
-        ],
-        "show_node_options": {
-          "ext": false,
-          "folder": false,
-          "alias": false
-        }
-      },
-      "prev_next": {
-        "enabled": true,
-        "show_node_options": {
-          "ext": false,
-          "folder": false,
-          "alias": false
-        },
-        "field_group_labels": {
-          "prev": [
-            "prevs"
-          ],
-          "next": [
-            "nexts"
-          ]
-        },
-        "period_rows": {
-          "week": false,
-          "month": false,
-          "quarter": false,
-          "year": false
-        }
-      }
-    },
-    "side": {
-      "matrix": {
-        "collapse": false,
-        "edge_sort_id": {
-          "field": "basename",
-          "order": 1
-        },
-        "custom_sort_fields": false,
-        "custom_sort_field_labels": [],
-        "show_node_options": {
-          "ext": false,
-          "folder": false,
-          "alias": false
-        },
-        "show_attributes": [
-          "source",
-          "implied_kind",
-          "round"
-        ],
-        "field_group_labels": [
-          "ups",
-          "downs",
-          "sames",
-          "nexts",
-          "prevs"
-        ],
-        "lock_view": false,
-        "lock_path": ""
-      },
-      "tree": {
-        "collapse": false,
-        "show_attributes": [],
-        "merge_fields": false,
-        "default_depth": 5,
-        "lock_view": false,
-        "lock_path": "",
-        "field_group_labels": [
-          "ups",
-          "downs"
-        ],
-        "edge_sort_id": {
-          "field": "basename",
-          "order": 1
-        },
-        "show_node_options": {
-          "ext": false,
-          "folder": false,
-          "alias": false
-        },
-        "find_root": true,
-        "find_root_field_group_labels": [
-          "ups"
-        ]
-      }
-    },
-    "codeblocks": {
-      "show_node_options": {
-        "ext": false,
-        "folder": false,
-        "alias": false
-      }
-    }
-  },
-  "commands": {
-    "rebuild_graph": {
-      "notify": true,
-      "trigger": {
-        "note_save": false,
-        "layout_change": false
-      }
-    },
-    "list_index": {
-      "default_options": {
-        "fields": [],
-        "indent": "\\t",
-        "link_kind": "wiki",
-        "show_attributes": [],
-        "field_group_labels": [],
-        "edge_sort_id": {
-          "order": 1,
-          "field": "basename"
-        },
-        "show_node_options": {
-          "ext": false,
-          "alias": true,
-          "folder": false
-        }
-      }
-    },
-    "freeze_implied_edges": {
-      "default_options": {
-        "destination": "frontmatter",
-        "included_fields": [],
-        "use_alias": true
-      }
-    },
-    "thread": {
-      "default_options": {
-        "destination": "frontmatter",
-        "target_path_template": "{{source.folder}}/{{attr.field}} {{source.basename}}"
-      }
-    }
-  },
-  "suggestors": {
-    "edge_field": {
-      "enabled": false,
-      "trigger": "."
-    }
-  },
-  "debug": {
-    "level": "INFO"
-  },
-  "_bc_migrations": {
-    "tree_ups_with_downs_default": true,
-    "tree_find_root_default": true
-  }
+	"is_dirty": false,
+	"edge_fields": [
+		{
+			"label": "up"
+		},
+		{
+			"label": "down"
+		},
+		{
+			"label": "same"
+		},
+		{
+			"label": "next"
+		},
+		{
+			"label": "prev"
+		},
+		{
+			"label": "implements"
+		},
+		{
+			"label": "implemented_by"
+		},
+		{
+			"label": "instantiates"
+		},
+		{
+			"label": "instantiated_by"
+		},
+		{
+			"label": "extends"
+		},
+		{
+			"label": "extended_by"
+		},
+		{
+			"label": "specializes"
+		},
+		{
+			"label": "generalizes"
+		},
+		{
+			"label": "enables"
+		},
+		{
+			"label": "enabled_by"
+		},
+		{
+			"label": "enhances"
+		},
+		{
+			"label": "enhanced_by"
+		},
+		{
+			"label": "amplifies"
+		},
+		{
+			"label": "amplified_by"
+		},
+		{
+			"label": "stabilizes"
+		},
+		{
+			"label": "stabilized_by"
+		},
+		{
+			"label": "simplifies"
+		},
+		{
+			"label": "simplified_by"
+		},
+		{
+			"label": "requires"
+		},
+		{
+			"label": "required_by"
+		},
+		{
+			"label": "depends_on"
+		},
+		{
+			"label": "depended_on_by"
+		},
+		{
+			"label": "defines"
+		},
+		{
+			"label": "defined_by"
+		},
+		{
+			"label": "describes"
+		},
+		{
+			"label": "described_by"
+		},
+		{
+			"label": "models"
+		},
+		{
+			"label": "modeled_by"
+		},
+		{
+			"label": "abstracts"
+		},
+		{
+			"label": "abstracted_by"
+		},
+		{
+			"label": "decomposes_into"
+		},
+		{
+			"label": "component_of"
+		},
+		{
+			"label": "reduces"
+		},
+		{
+			"label": "reduced_by"
+		},
+		{
+			"label": "constrains"
+		},
+		{
+			"label": "constrained_by"
+		},
+		{
+			"label": "limits"
+		},
+		{
+			"label": "limited_by"
+		},
+		{
+			"label": "isolates"
+		},
+		{
+			"label": "isolated_by"
+		},
+		{
+			"label": "protects"
+		},
+		{
+			"label": "protected_by"
+		},
+		{
+			"label": "enforces"
+		},
+		{
+			"label": "enforced_by"
+		},
+		{
+			"label": "weakens"
+		},
+		{
+			"label": "weakened_by"
+		},
+		{
+			"label": "composes_with"
+		},
+		{
+			"label": "conflicts_with"
+		},
+		{
+			"label": "trades_off_with"
+		},
+		{
+			"label": "competes_with"
+		},
+		{
+			"label": "alias_of"
+		},
+		{
+			"label": "related_to"
+		}
+	],
+	"edge_field_groups": [
+		{
+			"label": "ups",
+			"fields": [
+				"up",
+				"abstracted_by",
+				"amplifies",
+				"component_of",
+				"constrained_by",
+				"defines",
+				"depends_on",
+				"describes",
+				"enables",
+				"enforced_by",
+				"enhances",
+				"extends",
+				"implements",
+				"instantiates",
+				"isolated_by",
+				"limited_by",
+				"models",
+				"protected_by",
+				"reduced_by",
+				"requires",
+				"simplifies",
+				"specializes",
+				"stabilizes",
+				"weakened_by"
+			]
+		},
+		{
+			"label": "downs",
+			"fields": [
+				"down",
+				"abstracts",
+				"amplified_by",
+				"constrains",
+				"decomposes_into",
+				"defined_by",
+				"depended_on_by",
+				"described_by",
+				"enabled_by",
+				"enforces",
+				"enhanced_by",
+				"extended_by",
+				"generalizes",
+				"implemented_by",
+				"instantiated_by",
+				"isolates",
+				"limits",
+				"modeled_by",
+				"protects",
+				"reduces",
+				"required_by",
+				"simplified_by",
+				"stabilized_by",
+				"weakens"
+			]
+		},
+		{
+			"label": "sames",
+			"fields": [
+				"same",
+				"alias_of",
+				"competes_with",
+				"composes_with",
+				"conflicts_with",
+				"related_to",
+				"trades_off_with"
+			]
+		},
+		{
+			"label": "nexts",
+			"fields": [
+				"next"
+			]
+		},
+		{
+			"label": "prevs",
+			"fields": [
+				"prev"
+			]
+		}
+	],
+	"implied_relations": {
+		"transitive": [
+			{
+				"name": "",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "up"
+					}
+				],
+				"close_field": "down",
+				"close_reversed": true
+			},
+			{
+				"name": "",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "down"
+					}
+				],
+				"close_field": "up",
+				"close_reversed": true
+			},
+			{
+				"name": "",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "same"
+					}
+				],
+				"close_field": "same",
+				"close_reversed": true
+			},
+			{
+				"name": "",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "next"
+					}
+				],
+				"close_field": "prev",
+				"close_reversed": true
+			},
+			{
+				"name": "",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "prev"
+					}
+				],
+				"close_field": "next",
+				"close_reversed": true
+			},
+			{
+				"name": "implements",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "implements"
+					}
+				],
+				"close_field": "implemented_by",
+				"close_reversed": true
+			},
+			{
+				"name": "instantiates",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "instantiates"
+					}
+				],
+				"close_field": "instantiated_by",
+				"close_reversed": true
+			},
+			{
+				"name": "extends",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "extends"
+					}
+				],
+				"close_field": "extended_by",
+				"close_reversed": true
+			},
+			{
+				"name": "specializes",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "specializes"
+					}
+				],
+				"close_field": "generalizes",
+				"close_reversed": true
+			},
+			{
+				"name": "enables",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "enables"
+					}
+				],
+				"close_field": "enabled_by",
+				"close_reversed": true
+			},
+			{
+				"name": "enhances",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "enhances"
+					}
+				],
+				"close_field": "enhanced_by",
+				"close_reversed": true
+			},
+			{
+				"name": "amplifies",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "amplifies"
+					}
+				],
+				"close_field": "amplified_by",
+				"close_reversed": true
+			},
+			{
+				"name": "stabilizes",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "stabilizes"
+					}
+				],
+				"close_field": "stabilized_by",
+				"close_reversed": true
+			},
+			{
+				"name": "simplifies",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "simplifies"
+					}
+				],
+				"close_field": "simplified_by",
+				"close_reversed": true
+			},
+			{
+				"name": "requires",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "requires"
+					}
+				],
+				"close_field": "required_by",
+				"close_reversed": true
+			},
+			{
+				"name": "depends_on",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "depends_on"
+					}
+				],
+				"close_field": "depended_on_by",
+				"close_reversed": true
+			},
+			{
+				"name": "defines",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "defines"
+					}
+				],
+				"close_field": "defined_by",
+				"close_reversed": true
+			},
+			{
+				"name": "describes",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "describes"
+					}
+				],
+				"close_field": "described_by",
+				"close_reversed": true
+			},
+			{
+				"name": "models",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "models"
+					}
+				],
+				"close_field": "modeled_by",
+				"close_reversed": true
+			},
+			{
+				"name": "abstracts",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "abstracts"
+					}
+				],
+				"close_field": "abstracted_by",
+				"close_reversed": true
+			},
+			{
+				"name": "decomposes_into",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "decomposes_into"
+					}
+				],
+				"close_field": "component_of",
+				"close_reversed": true
+			},
+			{
+				"name": "reduces",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "reduces"
+					}
+				],
+				"close_field": "reduced_by",
+				"close_reversed": true
+			},
+			{
+				"name": "constrains",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "constrains"
+					}
+				],
+				"close_field": "constrained_by",
+				"close_reversed": true
+			},
+			{
+				"name": "limits",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "limits"
+					}
+				],
+				"close_field": "limited_by",
+				"close_reversed": true
+			},
+			{
+				"name": "isolates",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "isolates"
+					}
+				],
+				"close_field": "isolated_by",
+				"close_reversed": true
+			},
+			{
+				"name": "protects",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "protects"
+					}
+				],
+				"close_field": "protected_by",
+				"close_reversed": true
+			},
+			{
+				"name": "enforces",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "enforces"
+					}
+				],
+				"close_field": "enforced_by",
+				"close_reversed": true
+			},
+			{
+				"name": "weakens",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "weakens"
+					}
+				],
+				"close_field": "weakened_by",
+				"close_reversed": true
+			},
+			{
+				"name": "composes_with",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "composes_with"
+					}
+				],
+				"close_field": "composes_with",
+				"close_reversed": true
+			},
+			{
+				"name": "conflicts_with",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "conflicts_with"
+					}
+				],
+				"close_field": "conflicts_with",
+				"close_reversed": true
+			},
+			{
+				"name": "trades_off_with",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "trades_off_with"
+					}
+				],
+				"close_field": "trades_off_with",
+				"close_reversed": true
+			},
+			{
+				"name": "competes_with",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "competes_with"
+					}
+				],
+				"close_field": "competes_with",
+				"close_reversed": true
+			},
+			{
+				"name": "alias_of",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "alias_of"
+					}
+				],
+				"close_field": "alias_of",
+				"close_reversed": true
+			},
+			{
+				"name": "related_to",
+				"rounds": 1,
+				"chain": [
+					{
+						"field": "related_to"
+					}
+				],
+				"close_field": "related_to",
+				"close_reversed": true
+			}
+		]
+	},
+	"self_is_sibling": [
+		"alias_of",
+		"competes_with",
+		"composes_with",
+		"conflicts_with",
+		"related_to",
+		"same",
+		"trades_off_with"
+	],
+	"explicit_edge_sources": {
+		"typed_link": {},
+		"list_note": {
+			"default_neighbour_field": ""
+		},
+		"tag_note": {
+			"default_field": "up",
+			"default_sibling_field": ""
+		},
+		"regex_note": {
+			"default_field": "up"
+		},
+		"dendron_note": {
+			"enabled": false,
+			"delimiter": ".",
+			"default_field": "up",
+			"default_sibling_field": "",
+			"display_trimmed": false
+		},
+		"johnny_decimal_note": {
+			"enabled": false,
+			"delimiter": ".",
+			"default_field": "up",
+			"default_sibling_field": ""
+		},
+		"date_note": {
+			"enabled": false,
+			"date_format": "yyyy-MM-dd",
+			"default_field": "next",
+			"stretch_to_existing": false,
+			"week_start": "monday",
+			"week": {
+				"enabled": false,
+				"date_format": "kkkk-'W'WW",
+				"folder": "",
+				"next_field": "next",
+				"up_field": "up"
+			},
+			"month": {
+				"enabled": false,
+				"date_format": "yyyy-MM",
+				"folder": "",
+				"next_field": "next",
+				"up_field": "up"
+			},
+			"quarter": {
+				"enabled": false,
+				"date_format": "yyyy-'Q'q",
+				"folder": "",
+				"next_field": "next",
+				"up_field": "up"
+			},
+			"year": {
+				"enabled": false,
+				"date_format": "yyyy",
+				"folder": "",
+				"next_field": "next",
+				"up_field": "up"
+			}
+		},
+		"traverse_note": {
+			"default_field": "up"
+		}
+	},
+	"views": {
+		"page": {
+			"all": {
+				"sticky": false
+			},
+			"trail": {
+				"enabled": true,
+				"format": "grid",
+				"selection": "all",
+				"default_depth": 999,
+				"no_path_message": "",
+				"show_controls": true,
+				"merge_fields": false,
+				"field_group_labels": [
+					"ups"
+				],
+				"show_node_options": {
+					"ext": false,
+					"folder": false,
+					"alias": false
+				}
+			},
+			"prev_next": {
+				"enabled": true,
+				"show_node_options": {
+					"ext": false,
+					"folder": false,
+					"alias": false
+				},
+				"field_group_labels": {
+					"prev": [
+						"prevs"
+					],
+					"next": [
+						"nexts"
+					]
+				},
+				"period_rows": {
+					"week": false,
+					"month": false,
+					"quarter": false,
+					"year": false
+				}
+			}
+		},
+		"side": {
+			"matrix": {
+				"collapse": false,
+				"edge_sort_id": {
+					"field": "basename",
+					"order": 1
+				},
+				"custom_sort_fields": false,
+				"custom_sort_field_labels": [],
+				"show_node_options": {
+					"ext": false,
+					"folder": false,
+					"alias": false
+				},
+				"show_attributes": [
+					"source",
+					"implied_kind",
+					"round"
+				],
+				"field_group_labels": [
+					"ups",
+					"downs",
+					"sames",
+					"nexts",
+					"prevs"
+				],
+				"lock_view": false,
+				"lock_path": ""
+			},
+			"tree": {
+				"collapse": false,
+				"show_attributes": [],
+				"merge_fields": false,
+				"default_depth": 5,
+				"lock_view": false,
+				"lock_path": "",
+				"field_group_labels": [
+					"ups",
+					"downs"
+				],
+				"edge_sort_id": {
+					"field": "basename",
+					"order": 1
+				},
+				"show_node_options": {
+					"ext": false,
+					"folder": false,
+					"alias": false
+				},
+				"find_root": true,
+				"find_root_field_group_labels": [
+					"ups"
+				]
+			}
+		},
+		"codeblocks": {
+			"show_node_options": {
+				"ext": false,
+				"folder": false,
+				"alias": false
+			}
+		}
+	},
+	"commands": {
+		"rebuild_graph": {
+			"notify": true,
+			"trigger": {
+				"note_save": false,
+				"layout_change": false
+			}
+		},
+		"list_index": {
+			"default_options": {
+				"fields": [],
+				"indent": "\\t",
+				"link_kind": "wiki",
+				"show_attributes": [],
+				"field_group_labels": [],
+				"edge_sort_id": {
+					"order": 1,
+					"field": "basename"
+				},
+				"show_node_options": {
+					"ext": false,
+					"alias": true,
+					"folder": false
+				}
+			}
+		},
+		"freeze_implied_edges": {
+			"default_options": {
+				"destination": "frontmatter",
+				"included_fields": [],
+				"use_alias": true
+			}
+		},
+		"thread": {
+			"default_options": {
+				"destination": "frontmatter",
+				"target_path_template": "{{source.folder}}/{{attr.field}} {{source.basename}}"
+			}
+		}
+	},
+	"suggestors": {
+		"edge_field": {
+			"enabled": false,
+			"trigger": "."
+		}
+	},
+	"debug": {
+		"level": "INFO"
+	},
+	"_bc_migrations": {
+		"tree_ups_with_downs_default": true,
+		"tree_find_root_default": true
+	}
 }

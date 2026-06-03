@@ -29,6 +29,7 @@ Definitions in this repository are **normative**. They are cited from other comp
 architecture.md              # index (generated tables) — see tools/gen-index.py
 tools/gen-index.py           # regenerates the architecture.md tables from frontmatter
 .githooks/pre-commit         # blocks commits when architecture.md is stale or links break
+.obsidian/                   # Obsidian vault config; Breadcrumbs pre-configured for the relation graph
 README.md                    # repository overview
 AGENTS.md                    # this file
 ```
@@ -75,13 +76,11 @@ Controlled verb vocabulary (forward forms only; use nothing else):
 
 ### Visualizing the graph in Obsidian (Breadcrumbs)
 
-Relations are authored forward-only; the inverse edges are produced by the [Breadcrumbs](https://github.com/SkepticMystic/breadcrumbs) plugin's *implied relations*, so they never appear in any file. To set this up after opening the repo as an Obsidian vault:
+Relations are authored forward-only; the inverse edges are produced by the [Breadcrumbs](https://github.com/SkepticMystic/breadcrumbs) plugin's *implied relations*, so they never appear in any file. **Breadcrumbs is installed and pre-configured** in `.obsidian/plugins/breadcrumbs/` — open this repo as a vault and the graph works; no setup needed.
 
-1. Install **Breadcrumbs** (Community Plugins).
-2. **Settings → Edge Fields**: create one field per forward verb in the vocabulary above, and one per inverse label in the table below.
-3. **Settings → Edge Field Groups**: assign each forward verb and its inverse to *opposite* groups (the suggested `up`/`down` labels below are cosmetic — only the forward↔inverse pairing is load-bearing). Put symmetric relations in a single `same` group.
-4. **Settings → Implied Relations**: enable the *opposite-direction* implication so every forward edge auto-implies its inverse. This is what makes e.g. `stochastic-agents` show `constrained_by ← local-mediation` without that edge being written anywhere.
-5. *(Optional)* Install **Dataview** + **Graph Link Types** to render the relation verb as a label on each edge in the native graph view.
+The committed config (`.obsidian/plugins/breadcrumbs/data.json`) registers every vocabulary verb and its inverse as an *edge field*, groups them by direction (forward verbs and their inverses in opposite `ups`/`downs` groups, symmetric verbs in `sames`), and adds one *transitive implied-relation* rule per pair (`chain: [forward] → close_field: inverse, close_reversed: true`). That rule is what makes e.g. `stochastic-agents` show `constrained_by ← local-mediation` without that edge being written anywhere. The Matrix and Tree side views display all groups.
+
+If you change the vocabulary, mirror it in `data.json`: add the field to `edge_fields`, to the right `edge_field_groups` entry, and add a `transitive` rule for the pair (symmetric verbs also go in `self_is_sibling`). *(Optional)* Install **Dataview** + **Graph Link Types** to label edges in the native graph view.
 
 The forward → inverse pairing (also the table the ingestion loader uses to synthesize inverse edges, so the graph DB matches Breadcrumbs):
 
