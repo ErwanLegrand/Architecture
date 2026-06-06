@@ -25,6 +25,9 @@ Principles are foundational assumptions and goals. They define what the framewor
 | **Idempotency as a design constraint** | reliability | Every mutating operation must be idempotent by design; under retries, restarts, and replays any non-idempotent operation eventually executes more than once. | [→](/principles/idempotency-as-design-constraint.md) |
 | **Stateless subagent** | reliability | Subagents hold no persistent state across invocations; all task state is externalized, making them restartable, parallelizable, and replaceable. | [→](/principles/stateless-subagent.md) |
 | **Scope limiting** | performance, reliability | Each agent receives only the context slice its task requires; no subagent's reasoning trace is visible to another. | [→](/principles/scope-limiting.md) |
+| **Right model for task** | performance | Every invocation uses the cheapest model sufficient for its task; capability the task does not need adds cost and latency without improving the result. | [→](/principles/right-model-for-task.md) |
+| **Stable prefix** | performance | Keep stable context at the start of the window so the prompt cache stays warm; reordering stable sections across turns destroys cache hits. | [→](/principles/stable-prefix.md) |
+| **Output minimization** | performance | Output token volume is a cost driver — of price, latency, and downstream context pressure — and so a design variable, not a style preference. | [→](/principles/output-minimization.md) |
 <!-- gen:principle:end -->
 
 ---
@@ -61,6 +64,9 @@ Design patterns are the structural responses that implement the principles.
 | **Parallel worktree isolation** | reliability | Give each agent making overlapping code changes its own filesystem checkout; coordinate through a store, not a shared context window. | [→](/design%20patterns/parallel-worktree-isolation.md) |
 | **Shared state coordination** | reliability, performance | Agents coordinate via an external shared state store rather than by serialization into the orchestrator's context window. | [→](/design%20patterns/shared-state-coordination.md) |
 | **pass@k / pass^k evaluation** | reliability | Choose pass@k or pass^k to match the task's failure tolerance: at least one of k attempts succeeds, versus all k must succeed. | [→](/design%20patterns/pass-at-k-evaluation.md) |
+| **Model selection matrix** | performance | Encode the task-type-to-tier mapping as a declared policy applied at agent-creation time; default to the cheapest sufficient tier, upgrade only with justification. | [→](/design%20patterns/model-selection-matrix.md) |
+| **Context compaction** | performance | At a threshold or logical boundary, replace full history with a structured summary, freeing context while retaining active state. | [→](/design%20patterns/context-compaction.md) |
+| **Token budget management** | performance | Impose hard internal token limits below the API ceiling, track per-turn spend, pre-check expensive operations, and expose remaining budget to orchestrators. | [→](/design%20patterns/token-budget-management.md) |
 <!-- gen:pattern:end -->
 
 ---
@@ -100,6 +106,12 @@ The axes are orthogonal: an agent's position on one does not determine its posit
 | **Shared state store** | reliability, performance | External medium through which agents coordinate by reading their input slice and writing their output slice, without using each other's context windows. | [→](/architectural%20primitives/shared-state-store.md) |
 | **Worktree** | reliability | An isolated filesystem checkout that lets multiple agents make overlapping code changes in parallel without conflict. | [→](/architectural%20primitives/worktree.md) |
 | **Acceptance criterion** | reliability | An explicit, evaluatable definition of task completion that distinguishes a result merely produced from one that is correct. | [→](/architectural%20primitives/acceptance-criterion.md) |
+| **Context window** | performance | The total token capacity of a single model invocation, covering system prompt, history, tool outputs, and response. | [→](/architectural%20primitives/context-window.md) |
+| **Compaction boundary** | performance | A token threshold, set below the context ceiling, that triggers compaction; also fires at logical workflow boundaries. | [→](/architectural%20primitives/compaction-boundary.md) |
+| **Prompt cache** | performance | A provider-side cache keyed on the stable prefix of the window; hits avoid re-encoding the prefix, cutting latency and cost. | [→](/architectural%20primitives/prompt-cache.md) |
+| **Model tier** | performance | A categorical classification of model capability and cost — fast, mid, high — assigned in agent profile metadata, not selected at runtime. | [→](/architectural%20primitives/model-tier.md) |
+| **Compacted summary** | performance | A structured replacement for conversation history produced by compaction — current state, key decisions, artifacts in flight, open questions. | [→](/architectural%20primitives/compacted-summary.md) |
+| **Token budget** | performance | A declared ceiling on token expenditure for a session, operation, or invocation, enforced by the harness rather than the agent. | [→](/architectural%20primitives/token-budget.md) |
 <!-- gen:primitive:end -->
 
 ---
