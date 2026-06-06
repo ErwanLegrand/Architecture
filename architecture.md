@@ -15,8 +15,14 @@ Principles are foundational assumptions and goals. They define what the framewor
 | **Least privilege principle** | security | Every component is granted the minimum authority required to perform its function. | [→](/principles/least-privilege-principle.md) |
 | **Defense in depth** | security | Security properties are enforced by multiple independent layers such that the failure of any single layer does not compromise the system. | [→](/principles/defense-in-depth.md) |
 | **Suborned model principle** | security | Any language model must be assumed to be induced into faithful cooperation with adversarial instructions in its input. | [→](/principles/suborned-model-principle.md) |
-| **Least Model principle** | security | Minimize model-mediated decision-making in both extent and authority, across all classes of learned models. | [→](/principles/least-model-principle.md) |
+| **Least Model principle** | security, reliability | Minimize model-mediated decision-making in both extent and authority, across all classes of learned models. | [→](/principles/least-model-principle.md) |
 | **No agency without auditability principle** | security | No agent invocation may cause a state change without first committing a forensically sufficient record of that invocation. | [→](/principles/no-agency-without-auditability-principle.md) |
+| **Step reliability compounding** | reliability | In an unverified chain of stochastic steps end-to-end reliability is the product of per-step reliabilities; verification gates break this multiplicative decay. | [→](/principles/step-reliability-compounding.md) |
+| **Fail fast / crash only** | reliability | A component that cannot guarantee clean recovery terminates immediately and restarts from the last checkpoint; no partial-state cleanup logic. | [→](/principles/fail-fast-crash-only.md) |
+| **Observable failure** | reliability | Every failure must be detectable, attributable, and surfaced promptly; silent wrong output is worse than a loud error. | [→](/principles/observable-failure.md) |
+| **Explicit termination** | reliability | Every agent loop must have a declared, mechanically verifiable termination condition enforced by the loop infrastructure, not the agent's judgement. | [→](/principles/explicit-termination.md) |
+| **Intent-aligned retry** | reliability | Retry boundaries align to the intent unit, not the step unit; safe-to-retry is declared per operation, not inferred from transport. | [→](/principles/intent-aligned-retry.md) |
+| **Idempotency as a design constraint** | reliability | Every mutating operation must be idempotent by design; under retries, restarts, and replays any non-idempotent operation eventually executes more than once. | [→](/principles/idempotency-as-design-constraint.md) |
 <!-- gen:principle:end -->
 
 ---
@@ -36,6 +42,14 @@ Design patterns are the structural responses that implement the principles.
 | **Trusted-path logging** | security | Write log entries through a channel outside the model's authority, to storage the model cannot modify. | [→](/design%20patterns/trusted-path-logging.md) |
 | **Hash-chained logs** | security | Append-only logs where each entry is cryptographically bound to its predecessor. | [→](/design%20patterns/hash-chained-logs.md) |
 | **Replay-able invocation records** | security | Capture full invocation state enabling deterministic re-execution for forensic analysis. | [→](/design%20patterns/replay-able-invocation-records.md) |
+| **Review-and-critique loop** | reliability | A generator produces output, a separate critic evaluates it against explicit criteria, and the generator revises until criteria pass or a limit is reached. | [→](/design%20patterns/review-and-critique-loop.md) |
+| **Adversarial critique** | reliability | A critic that attempts to refute rather than approve the output — Socratic questioning and Popperian falsification — surfacing failures a confirmatory review would pass. | [→](/design%20patterns/adversarial-critique.md) |
+| **Deterministic verification gate** | reliability | A deterministic check — static analysis, type check, schema validation, test — placed after a stochastic step to catch a class of errors with certainty. | [→](/design%20patterns/deterministic-verification-gate.md) |
+| **N-version consensus** | reliability | Generate a step's output independently n times and select the agreed result, reducing residual error far faster than a single pass. | [→](/design%20patterns/n-version-consensus.md) |
+| **Checkpoint-resume** | reliability | Persist state to a durable store before each phase and, on failure, restart from the last checkpoint rather than from scratch. | [→](/design%20patterns/checkpoint-resume.md) |
+| **Crash-only agent** | reliability | An agent with no cleanup or rollback logic that, on failure, terminates and resumes from the last checkpoint. | [→](/design%20patterns/crash-only-agent.md) |
+| **Idempotent tool design** | reliability | Every state-mutating tool takes a stable idempotency key and treats a repeated key as a no-op that returns the original result. | [→](/design%20patterns/idempotent-tool-design.md) |
+| **Retry with backoff and budget** | reliability | A retry policy combining exponential backoff with jitter, a bounded attempt count, a circuit breaker, and a per-turn retry budget. | [→](/design%20patterns/retry-with-backoff-and-budget.md) |
 <!-- gen:pattern:end -->
 
 ---
@@ -61,6 +75,14 @@ The axes are orthogonal: an agent's position on one does not determine its posit
 | **Core agents** | security | Hold sensitive capabilities and produce plans, decisions, and actions; never exposed to `Untrusted` data. Generalization of the dual-LLM P-LLM. | [→](/architectural%20primitives/core-agents.md) |
 | **Edge agents** | security | Exposed to external `Untrusted` data, which they transform; hold no sensitive capabilities and emit only `Untrusted` outputs. Generalization of the dual-LLM Q-LLM. | [→](/architectural%20primitives/edge-agents.md) |
 | **Bridge agents** | security | Perform validated, logged declassification from `Untrusted` to `Trusted` of restricted type; the only path by which Edge-produced content reaches Core agents. | [→](/architectural%20primitives/bridge-agents.md) |
+| **Agent loop** | reliability | The core execution cycle — perceive, reason, act, observe, update state — repeated until a termination condition is met. | [→](/architectural%20primitives/agent-loop.md) |
+| **Iteration limit** | reliability | A hard, externally enforced ceiling on loop iterations, set by the loop infrastructure rather than the agent. | [→](/architectural%20primitives/iteration-limit.md) |
+| **Termination condition** | reliability | An explicit predicate the loop infrastructure evaluates each iteration, covering both the success and the failure terminals. | [→](/architectural%20primitives/termination-condition.md) |
+| **Checkpoint store** | reliability | External, durable, agent-independent storage for task-critical state, written before each phase so any instance can resume. | [→](/architectural%20primitives/checkpoint-store.md) |
+| **Idempotency key** | reliability | A stable identifier derived from an operation's intent that lets a receiver detect and de-duplicate re-submissions. | [→](/architectural%20primitives/idempotency-key.md) |
+| **Retry budget** | reliability | A per-turn cap on total retry attempts across all tool calls, bounding aggregate retry cost independently of per-call limits. | [→](/architectural%20primitives/retry-budget.md) |
+| **Exponential backoff** | reliability | A retry-delay strategy that grows the wait geometrically with jitter to avoid synchronized retries against a recovering service. | [→](/architectural%20primitives/exponential-backoff.md) |
+| **Circuit breaker** | reliability | Stops requests to a failing downstream after repeated failures, making persistent failure visible instead of masking it with endless retries. | [→](/architectural%20primitives/circuit-breaker.md) |
 <!-- gen:primitive:end -->
 
 ---
