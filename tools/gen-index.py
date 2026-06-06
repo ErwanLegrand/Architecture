@@ -26,9 +26,10 @@ INDEX = os.path.join(REPO, "architecture.md")
 # type -> (folder, column label). Folder names contain literal spaces on disk;
 # links encode them as %20.
 TYPES = {
-    "principle": ("security principles", "Principle"),
+    "principle": ("principles", "Principle"),
     "pattern": ("design patterns", "Pattern"),
     "primitive": ("architectural primitives", "Primitive"),
+    "threat": ("threats", "Threat"),
 }
 
 
@@ -53,12 +54,22 @@ def display_name(title):
     return re.sub(r"\s*\([^)]*\)\s*$", "", title)
 
 
+def domains(d):
+    # `domains` is a YAML list in frontmatter; render as a comma-joined cell.
+    vals = d.get("domains") or []
+    if isinstance(vals, str):
+        vals = [vals]
+    return ", ".join(vals)
+
+
 def table(kind):
     folder, label = TYPES[kind]
-    rows = [f"| {label} | Brief | Full Definition |", "| --- | --- | --- |"]
+    rows = [f"| {label} | Domain | Brief | Full Definition |", "| --- | --- | --- | --- |"]
     for d in load(folder):
         link = f"/{folder.replace(' ', '%20')}/{d['stem']}.md"
-        rows.append(f"| **{display_name(d['title'])}** | {d['brief']} | [→]({link}) |")
+        rows.append(
+            f"| **{display_name(d['title'])}** | {domains(d)} | {d['brief']} | [→]({link}) |"
+        )
     return "\n".join(rows)
 
 

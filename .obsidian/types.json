@@ -78,6 +78,8 @@
     "trades_off_with": "multitext",
     "competes_with": "multitext",
     "alias_of": "multitext",
-    "related_to": "multitext"
+    "related_to": "multitext",
+    "mitigates": "multitext",
+    "mitigated_by": "multitext"
   }
 }

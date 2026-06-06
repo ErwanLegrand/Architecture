@@ -143,6 +143,12 @@
       "label": "protected_by"
     },
     {
+      "label": "mitigates"
+    },
+    {
+      "label": "mitigated_by"
+    },
+    {
       "label": "enforces"
     },
     {
@@ -200,7 +206,8 @@
         "simplifies",
         "specializes",
         "stabilizes",
-        "weakened_by"
+        "weakened_by",
+        "mitigated_by"
       ]
     },
     {
@@ -229,7 +236,8 @@
         "required_by",
         "simplified_by",
         "stabilized_by",
-        "weakens"
+        "weakens",
+        "mitigates"
       ]
     },
     {
@@ -631,6 +639,17 @@
           }
         ],
         "close_field": "related_to",
+        "close_reversed": true
+      },
+      {
+        "name": "mitigates",
+        "rounds": 1,
+        "chain": [
+          {
+            "field": "mitigates"
+          }
+        ],
+        "close_field": "mitigated_by",
         "close_reversed": true
       }
     ]
