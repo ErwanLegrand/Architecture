@@ -7,6 +7,7 @@ status: stable
 brief: "Impose hard internal token limits below the API ceiling, track per-turn spend, pre-check expensive operations, and expose remaining budget to orchestrators."
 order: 29
 requires: ["[[token-budget]]"]
+mitigates: ["[[unbounded-resource-consumption]]"]
 related_to: ["[[context-compaction]]", "[[right-model-for-task]]"]
 ---
 

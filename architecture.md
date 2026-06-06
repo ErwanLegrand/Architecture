@@ -68,6 +68,7 @@ Design patterns are the structural responses that implement the principles.
 | **Model selection matrix** | performance | Encode the task-type-to-tier mapping as a declared policy applied at agent-creation time; default to the cheapest sufficient tier, upgrade only with justification. | [→](/design%20patterns/model-selection-matrix.md) |
 | **Context compaction** | performance | At a threshold or logical boundary, replace full history with a structured summary, freeing context while retaining active state. | [→](/design%20patterns/context-compaction.md) |
 | **Token budget management** | performance | Impose hard internal token limits below the API ceiling, track per-turn spend, pre-check expensive operations, and expose remaining budget to orchestrators. | [→](/design%20patterns/token-budget-management.md) |
+| **Admission control** | security, reliability | Bound the work an agent accepts — rate-limit admitted requests, apply backpressure, and shed excess load — rather than only bounding what an accepted run consumes. | [→](/design%20patterns/admission-control.md) |
 <!-- gen:pattern:end -->
 
 ---
@@ -113,6 +114,8 @@ The axes are orthogonal: an agent's position on one does not determine its posit
 | **Model tier** | performance | A categorical classification of model capability and cost — fast, mid, high — assigned in agent profile metadata, not selected at runtime. | [→](/architectural%20primitives/model-tier.md) |
 | **Compacted summary** | performance | A structured replacement for conversation history produced by compaction — current state, key decisions, artifacts in flight, open questions. | [→](/architectural%20primitives/compacted-summary.md) |
 | **Token budget** | performance | A declared ceiling on token expenditure for a session, operation, or invocation, enforced by the harness rather than the agent. | [→](/architectural%20primitives/token-budget.md) |
+| **Wall-clock budget** | reliability, performance | A declared ceiling on elapsed wall-clock time for a session, operation, or invocation, enforced by the harness — the time-domain sibling of the token and retry budgets. | [→](/architectural%20primitives/wall-clock-budget.md) |
+| **Rate limit** | security, reliability | A ceiling on the rate at which requests are admitted over a time window, enforced ahead of saturation rather than after failure like the circuit breaker. | [→](/architectural%20primitives/rate-limit.md) |
 <!-- gen:primitive:end -->
 
 ---
@@ -127,5 +130,6 @@ Threats are the failure modes the framework defends against. Unlike principles, 
 | **Ambient authority abuse** | security | A component exercises authority attached to its identity or environment rather than carried by an explicit grant, enabling unintended use. | [→](/threats/ambient-authority-abuse.md) |
 | **Confused deputy problem** | security | A program with authority is tricked by a less-privileged requester into misusing that authority on the requester's behalf. | [→](/threats/confused-deputy-problem.md) |
 | **Prompt injection** | security | Adversarial content in an agent's input induces it to misuse its tools or authority on the attacker's behalf — a confused deputy in instruction-following models. | [→](/threats/prompt-injection.md) |
+| **Unbounded resource consumption** | security, reliability, performance | An agent loop without enforced caps on iterations, tokens, retries, or wall-clock consumes compute, context, and cost without bound — through misconfiguration or adversarial input that drives consumption to deny service. | [→](/threats/unbounded-resource-consumption.md) |
 <!-- gen:threat:end -->
 

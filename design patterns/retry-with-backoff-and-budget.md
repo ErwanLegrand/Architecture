@@ -8,6 +8,7 @@ brief: "A retry policy combining exponential backoff with jitter, a bounded atte
 order: 17
 implements: ["[[intent-aligned-retry]]"]
 requires: ["[[exponential-backoff]]", "[[retry-budget]]", "[[circuit-breaker]]", "[[idempotent-tool-design]]"]
+mitigates: ["[[unbounded-resource-consumption]]"]
 ---
 
 # Retry with backoff and budget
