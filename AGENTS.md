@@ -4,7 +4,7 @@ Guidance for AI agents and human contributors working in this repository.
 
 ## What this repository is
 
-A reference framework for **secure agentic architecture**: the security principles, design patterns, and architectural primitives required to build agentic systems that remain secure under adversarial input and suborned models. The content is documentation only — there is no executable code, no build, no test suite.
+A reference framework for **agentic architecture**: the principles, design patterns, architectural primitives, and threats required to build agentic systems that are secure, reliable, and performant — including remaining secure under adversarial input and suborned models. Each concept declares the domain(s) it serves (`security`, `reliability`, `performance`) in its frontmatter; one concept may serve more than one. The content is documentation only — there is no executable code, no build, no test suite.
 
 Authoritative entry points:
 
@@ -16,16 +16,17 @@ Authoritative entry points:
 Definitions in this repository are **normative**. They are cited from other components and design discussions and must remain stable.
 
 - Do **not** paraphrase, summarize, or "improve the style" of an existing definition. Preserve wording byte-for-byte unless the change is explicitly requested.
-- A definition's text lives in its own file under `security principles/`, `design patterns/`, or `architectural primitives/`. The `architecture.md` table carries only a one-sentence brief — never duplicate the full definition there.
+- A definition's text lives in its own file under `principles/`, `design patterns/`, `architectural primitives/`, or `threats/`. The `architecture.md` table carries only a one-sentence brief — never duplicate the full definition there.
 - The brief lives in the file's `brief` frontmatter field; the `architecture.md` tables are generated from it. Never hand-edit those tables. If you change a definition, update `brief` in its file and regenerate (see "The architecture.md index is generated").
 - Deviations from any principle in real systems require explicit justification; deviations from the wording of a principle in this repo require explicit user approval.
 
 ## File organization
 
 ```
-/security principles/        # one file per principle (kebab-case)
+/principles/                 # one file per principle (kebab-case)
 /design patterns/            # one file per pattern
 /architectural primitives/   # one file per primitive
+/threats/                    # one file per threat / failure mode
 architecture.md              # index (generated tables) — see tools/gen-index.py
 tools/gen-index.py           # regenerates the architecture.md tables from frontmatter
 .githooks/pre-commit         # blocks commits when architecture.md is stale or links break
@@ -36,7 +37,7 @@ AGENTS.md                    # this file
 
 Conventions:
 
-- Directory names contain spaces intentionally; in Markdown links encode them as `%20` (e.g. `/security%20principles/foo.md`).
+- Directory names contain spaces intentionally; in Markdown links encode them as `%20` (e.g. `/principles/foo.md`).
 - One concept per file. Filename is kebab-case of the concept name (e.g. `least-privilege-principle.md`).
 - Each definition file uses a single H1 matching the concept name. Subsections use H2 or bullet lists.
 
@@ -48,8 +49,8 @@ Each definition file begins with YAML frontmatter carrying its metadata and its 
 ---
 id: write-ahead-audit              # canonical node key; equals the filename stem
 title: Write-ahead audit           # equals the H1, verbatim
-type: principle | pattern | primitive   # equals the containing folder
-domains: [security]                # add reliability/performance ONLY where the body already makes that claim
+type: principle | pattern | primitive | threat   # equals the containing folder
+domains: [security]                # one or more of: security, reliability, performance — list a domain ONLY where the body already makes that claim
 status: draft | stable
 brief: "One-sentence summary; source of the architecture.md index row."
 order: 5                           # position within its type group in the index
@@ -61,7 +62,7 @@ implements: ["[[no-agency-without-auditability-principle]]"]
 Rules:
 
 - `brief` and `order` drive the generated `architecture.md` tables (see "The architecture.md index is generated"). `brief` is the single source of the index row; `order` is the integer position within the type group.
-- One top-level key per relation verb; the value is a YAML list of `[[wikilinks]]`, even for a single target. Each `[[target]]` is another file's `id` (its kebab filename stem); basenames are unique across the three folders, so the bare stem resolves.
+- One top-level key per relation verb; the value is a YAML list of `[[wikilinks]]`, even for a single target. Each `[[target]]` is another file's `id` (its kebab filename stem); basenames are unique across the four folders, so the bare stem resolves.
 - Author the **forward** direction only. Inverse edges (`implemented_by`, `constrained_by`, …) are computed — by Breadcrumbs in Obsidian and by the ingestion loader — never written by hand. Single source of truth; no materialized back-references.
 - A relation must reflect a claim the prose already makes. To add an edge the prose does not yet support, extend the prose (one sentence, in the definition's voice — see "Normative wording") rather than asserting an ungrounded edge.
 
@@ -69,10 +70,12 @@ Controlled verb vocabulary (forward forms only; use nothing else):
 
 - **structural** — `implements`, `instantiates`, `extends`, `specializes`, `abstracts`, `decomposes_into`, `composes_with`
 - **causal** — `enables`, `enhances`, `reduces`, `amplifies`, `stabilizes`, `simplifies`
-- **constraint** — `requires`, `depends_on`, `constrains`, `limits`, `isolates`, `protects`, `enforces`
+- **constraint** — `requires`, `depends_on`, `constrains`, `limits`, `isolates`, `protects`, `mitigates`, `enforces`
 - **trade-off** — `conflicts_with`, `trades_off_with`, `competes_with`, `weakens`
 - **semantic** — `defines`, `describes`, `models`, `alias_of`, `related_to`
 - **forbidden** — `affects`, `uses`, `helps`, "is related to" (too vague to be an edge)
+
+Threats are the failure modes the other concepts defend against. The mitigation edge is authored **forward** as `mitigates` on the mitigating principle, pattern, or primitive (e.g. a pattern file lists `mitigates: ["[[confused-deputy-problem]]"]`); the threat file carries only the implied `mitigated_by` inverse, never written by hand. A more specific threat relates to a more general one with `specializes` (e.g. prompt-injection `specializes` confused-deputy-problem).
 
 ### Visualizing the graph in Obsidian (Breadcrumbs)
 
@@ -101,6 +104,7 @@ The forward → inverse pairing (also the table the ingestion loader uses to syn
 | `constrains` | `constrained_by` | down |
 | `limits` / `isolates` | `limited_by` / `isolated_by` | down |
 | `protects` | `protected_by` | down |
+| `mitigates` | `mitigated_by` | down |
 | `enforces` | `enforced_by` | down |
 | `weakens` | `weakened_by` | down |
 | `defines` / `describes` / `models` | `defined_by` / `described_by` / `modeled_by` | up |
@@ -108,7 +112,7 @@ The forward → inverse pairing (also the table the ingestion loader uses to syn
 | `conflicts_with` / `trades_off_with` / `competes_with` | self | same |
 | `alias_of` / `related_to` | self | same |
 
-## Adding a new principle, pattern, or primitive
+## Adding a new principle, pattern, primitive, or threat
 
 1. Create a file in the matching subdirectory with kebab-case name and H1 title.
 2. Write the full normative definition; keep it focused on this one concept.
@@ -137,7 +141,7 @@ The forward → inverse pairing (also the table the ingestion loader uses to syn
 
    ```bash
    grep -rhoE '\[\[[^]]+\]\]' --include='*.md' \
-     "security principles" "design patterns" "architectural primitives" \
+     "principles" "design patterns" "architectural primitives" "threats" \
      | sed -E 's/\[\[(.*)\]\]/\1/' | sort -u \
      | while IFS= read -r id; do find . -name "$id.md" | grep -q . || echo "UNRESOLVED: [[$id]]"; done
    ```
@@ -150,7 +154,7 @@ The forward → inverse pairing (also the table the ingestion loader uses to syn
 
 ## The architecture.md index is generated
 
-The three tables in `architecture.md` are generated from definition frontmatter by `tools/gen-index.py`; the rows live between `<!-- gen:<type>:start -->` / `<!-- gen:<type>:end -->` markers. The prose around the tables is hand-written and preserved. Each row's name comes from `title` (a trailing ` (… axis)` annotation is stripped), its summary from `brief`, its position from `order`, and its link from the file path.
+The four tables in `architecture.md` are generated from definition frontmatter by `tools/gen-index.py`; the rows live between `<!-- gen:<type>:start -->` / `<!-- gen:<type>:end -->` markers. The prose around the tables is hand-written and preserved. Each row's name comes from `title` (a trailing ` (… axis)` annotation is stripped), its summary from `brief`, its position from `order`, and its link from the file path.
 
 - Edit a brief or add/remove a concept → change frontmatter, then run `python3 tools/gen-index.py`.
 - Never edit text between the `gen:` markers by hand; it is overwritten on the next run.

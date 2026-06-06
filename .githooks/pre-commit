@@ -23,7 +23,7 @@ fi
 
 # 3. Every frontmatter [[wikilink]] relation target resolves to a file.
 unresolved=$(grep -rhoE '\[\[[^]]+\]\]' --include='*.md' \
-  "security principles" "design patterns" "architectural primitives" \
+  "principles" "design patterns" "architectural primitives" "threats" \
   | sed -E 's/\[\[(.*)\]\]/\1/' | sort -u \
   | while IFS= read -r id; do find . -name "$id.md" | grep -q . || echo "UNRESOLVED: [[$id]]"; done)
 if [ -n "$unresolved" ]; then
@@ -33,7 +33,7 @@ fi
 
 # 4. No forbidden verb is used as a relation key.
 if grep -rnE '^(affects|uses|helps):' --include='*.md' \
-  "security principles" "design patterns" "architectural primitives"; then
+  "principles" "design patterns" "architectural primitives" "threats"; then
   echo "^ FORBIDDEN relation verb"
   fail=1
 fi
