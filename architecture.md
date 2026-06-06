@@ -23,6 +23,8 @@ Principles are foundational assumptions and goals. They define what the framewor
 | **Explicit termination** | reliability | Every agent loop must have a declared, mechanically verifiable termination condition enforced by the loop infrastructure, not the agent's judgement. | [→](/principles/explicit-termination.md) |
 | **Intent-aligned retry** | reliability | Retry boundaries align to the intent unit, not the step unit; safe-to-retry is declared per operation, not inferred from transport. | [→](/principles/intent-aligned-retry.md) |
 | **Idempotency as a design constraint** | reliability | Every mutating operation must be idempotent by design; under retries, restarts, and replays any non-idempotent operation eventually executes more than once. | [→](/principles/idempotency-as-design-constraint.md) |
+| **Stateless subagent** | reliability | Subagents hold no persistent state across invocations; all task state is externalized, making them restartable, parallelizable, and replaceable. | [→](/principles/stateless-subagent.md) |
+| **Scope limiting** | performance, reliability | Each agent receives only the context slice its task requires; no subagent's reasoning trace is visible to another. | [→](/principles/scope-limiting.md) |
 <!-- gen:principle:end -->
 
 ---
@@ -50,6 +52,15 @@ Design patterns are the structural responses that implement the principles.
 | **Crash-only agent** | reliability | An agent with no cleanup or rollback logic that, on failure, terminates and resumes from the last checkpoint. | [→](/design%20patterns/crash-only-agent.md) |
 | **Idempotent tool design** | reliability | Every state-mutating tool takes a stable idempotency key and treats a repeated key as a no-op that returns the original result. | [→](/design%20patterns/idempotent-tool-design.md) |
 | **Retry with backoff and budget** | reliability | A retry policy combining exponential backoff with jitter, a bounded attempt count, a circuit breaker, and a per-turn retry budget. | [→](/design%20patterns/retry-with-backoff-and-budget.md) |
+| **Sequential phase orchestration** | reliability | Chain specialized agents so each has one input and one output persisted as a handoff before the next phase begins. | [→](/design%20patterns/sequential-phase-orchestration.md) |
+| **ReAct loop** | reliability | At each step the agent produces a Thought, an Action, and receives an Observation, grounding reasoning in environment feedback. | [→](/design%20patterns/react-loop.md) |
+| **Iterative retrieval** | reliability | The orchestrator evaluates a subagent's results against the objective and issues targeted follow-ups before accepting, passing why the information is needed. | [→](/design%20patterns/iterative-retrieval.md) |
+| **Hierarchical task decomposition** | reliability, performance | A root orchestrator decomposes a goal into independent sub-tasks, routes each to a specialist subagent, and synthesizes the outputs. | [→](/design%20patterns/hierarchical-task-decomposition.md) |
+| **Human-in-the-loop** | reliability | Pause the workflow at high-stakes checkpoints for human review or approval before proceeding. | [→](/design%20patterns/human-in-the-loop.md) |
+| **Scope limiting / stateless subagent** | reliability, performance | Distribute work across subagents that each receive only their relevant context; the orchestrator synthesizes outputs and no reasoning trace is shared. | [→](/design%20patterns/scope-limiting-stateless-subagent.md) |
+| **Parallel worktree isolation** | reliability | Give each agent making overlapping code changes its own filesystem checkout; coordinate through a store, not a shared context window. | [→](/design%20patterns/parallel-worktree-isolation.md) |
+| **Shared state coordination** | reliability, performance | Agents coordinate via an external shared state store rather than by serialization into the orchestrator's context window. | [→](/design%20patterns/shared-state-coordination.md) |
+| **pass@k / pass^k evaluation** | reliability | Choose pass@k or pass^k to match the task's failure tolerance: at least one of k attempts succeeds, versus all k must succeed. | [→](/design%20patterns/pass-at-k-evaluation.md) |
 <!-- gen:pattern:end -->
 
 ---
@@ -83,6 +94,12 @@ The axes are orthogonal: an agent's position on one does not determine its posit
 | **Retry budget** | reliability | A per-turn cap on total retry attempts across all tool calls, bounding aggregate retry cost independently of per-call limits. | [→](/architectural%20primitives/retry-budget.md) |
 | **Exponential backoff** | reliability | A retry-delay strategy that grows the wait geometrically with jitter to avoid synchronized retries against a recovering service. | [→](/architectural%20primitives/exponential-backoff.md) |
 | **Circuit breaker** | reliability | Stops requests to a failing downstream after repeated failures, making persistent failure visible instead of masking it with endless retries. | [→](/architectural%20primitives/circuit-breaker.md) |
+| **Subagent** | reliability, performance | An isolated execution unit with a bounded context, a declared tool scope, and no shared state; the unit of parallelism in multi-agent orchestration. | [→](/architectural%20primitives/subagent.md) |
+| **Orchestrator** | reliability, performance | The coordinating agent that decomposes goals, dispatches subagents, manages shared state, synthesizes outputs, and evaluates termination. | [→](/architectural%20primitives/orchestrator.md) |
+| **Phase handoff** | reliability | A schema-validated artifact that carries one phase's output to the next phase's input, persisted before the next phase begins. | [→](/architectural%20primitives/phase-handoff.md) |
+| **Shared state store** | reliability, performance | External medium through which agents coordinate by reading their input slice and writing their output slice, without using each other's context windows. | [→](/architectural%20primitives/shared-state-store.md) |
+| **Worktree** | reliability | An isolated filesystem checkout that lets multiple agents make overlapping code changes in parallel without conflict. | [→](/architectural%20primitives/worktree.md) |
+| **Acceptance criterion** | reliability | An explicit, evaluatable definition of task completion that distinguishes a result merely produced from one that is correct. | [→](/architectural%20primitives/acceptance-criterion.md) |
 <!-- gen:primitive:end -->
 
 ---
