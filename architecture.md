@@ -47,6 +47,7 @@ Design patterns are the structural responses that implement the principles.
 | **Trusted-path logging** | security | Write log entries through a channel outside the model's authority, to storage the model cannot modify. | [→](/design%20patterns/trusted-path-logging.md) |
 | **Hash-chained logs** | security | Append-only logs where each entry is cryptographically bound to its predecessor. | [→](/design%20patterns/hash-chained-logs.md) |
 | **Replay-able invocation records** | security | Capture full invocation state enabling deterministic re-execution for forensic analysis. | [→](/design%20patterns/replay-able-invocation-records.md) |
+| **Capability-based security design pattern** | security | Access to a resource is governed by possession of an unforgeable capability naming the object and permitted operations; authority travels with the reference, not the identity. | [→](/design%20patterns/capability-based-security-design-pattern.md) |
 | **Review-and-critique loop** | reliability | A generator produces output, a separate critic evaluates it against explicit criteria, and the generator revises until criteria pass or a limit is reached. | [→](/design%20patterns/review-and-critique-loop.md) |
 | **Adversarial critique** | reliability | A critic that attempts to refute rather than approve the output — Socratic questioning and Popperian falsification — surfacing failures a confirmatory review would pass. | [→](/design%20patterns/adversarial-critique.md) |
 | **Deterministic verification gate** | reliability | A deterministic check — static analysis, type check, schema validation, test — placed after a stochastic step to catch a class of errors with certainty. | [→](/design%20patterns/deterministic-verification-gate.md) |
@@ -123,5 +124,8 @@ Threats are the failure modes the framework defends against. Unlike principles, 
 <!-- gen:threat:start (generated from frontmatter by tools/gen-index.py — do not edit by hand) -->
 | Threat | Domain | Brief | Full Definition |
 | --- | --- | --- | --- |
+| **Ambient authority abuse** | security | A component exercises authority attached to its identity or environment rather than carried by an explicit grant, enabling unintended use. | [→](/threats/ambient-authority-abuse.md) |
+| **Confused deputy problem** | security | A program with authority is tricked by a less-privileged requester into misusing that authority on the requester's behalf. | [→](/threats/confused-deputy-problem.md) |
+| **Prompt injection** | security | Adversarial content in an agent's input induces it to misuse its tools or authority on the attacker's behalf — a confused deputy in instruction-following models. | [→](/threats/prompt-injection.md) |
 <!-- gen:threat:end -->
 

@@ -8,6 +8,7 @@ brief: "Generalizes the dual-LLM pattern to N agents typed by trust position —
 order: 4
 composes_with: ["[[provenance-tracking-design-pattern]]"]
 decomposes_into: ["[[core-agents]]", "[[edge-agents]]", "[[bridge-agents]]"]
+mitigates: ["[[prompt-injection]]"]
 ---
 
 # Role-typed agent separation design pattern
@@ -29,5 +30,7 @@ In practice:
 - **Dual-LLM is the degenerate case.** A system with one Core agent (the P-LLM), one Edge agent (the Q-LLM), and an implicit Bridge (the orchestrator's deserialization layer) is the two-node specialization of this pattern.
 
 The pattern composes with the [provenance tracking pattern](/design%20patterns/provenance-tracking-design-pattern.md): provenance labels are what role assignment enforces. A Core agent is one the type system permits to hold `Trusted` capabilities; an Edge agent is one the type system constrains to `Untrusted` outputs; a Bridge agent is one the type system permits to call declassification functions.
+
+Because an Edge agent that reads untrusted data holds no sensitive capability and emits only `Untrusted` outputs, a prompt injection in that data cannot escalate into a sensitive action: the separation bounds the blast radius of prompt injection by construction, confining the suborned agent to the authority of its role.
 
 The pattern descends from Simon Willison's dual-LLM (April 2023) and CaMeL (Debenedetti et al., March 2025), extended to multi-agent systems through the explicit Bridge role and the declared topology. The N-agent generalization makes the pattern usable for orchestration frameworks beyond the two-LLM case CaMeL originally addressed.
