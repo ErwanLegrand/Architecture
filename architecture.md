@@ -113,6 +113,7 @@ The axes are orthogonal: an agent's position on one does not determine its posit
 | **Model tier** | performance | A categorical classification of model capability and cost — fast, mid, high — assigned in agent profile metadata, not selected at runtime. | [→](/architectural%20primitives/model-tier.md) |
 | **Compacted summary** | performance | A structured replacement for conversation history produced by compaction — current state, key decisions, artifacts in flight, open questions. | [→](/architectural%20primitives/compacted-summary.md) |
 | **Token budget** | performance | A declared ceiling on token expenditure for a session, operation, or invocation, enforced by the harness rather than the agent. | [→](/architectural%20primitives/token-budget.md) |
+| **Model attestation** | security | A verified binding of a model's identity, version, and weight integrity, checked by the harness before the model is admitted for use, detecting tampering or substitution of the weights. | [→](/architectural%20primitives/model-attestation.md) |
 <!-- gen:primitive:end -->
 
 ---
@@ -127,5 +128,7 @@ Threats are the failure modes the framework defends against. Unlike principles, 
 | **Ambient authority abuse** | security | A component exercises authority attached to its identity or environment rather than carried by an explicit grant, enabling unintended use. | [→](/threats/ambient-authority-abuse.md) |
 | **Confused deputy problem** | security | A program with authority is tricked by a less-privileged requester into misusing that authority on the requester's behalf. | [→](/threats/confused-deputy-problem.md) |
 | **Prompt injection** | security | Adversarial content in an agent's input induces it to misuse its tools or authority on the attacker's behalf — a confused deputy in instruction-following models. | [→](/threats/prompt-injection.md) |
+| **Data poisoning** | security | Corruption of a persistent data source a model relies on — training or fine-tuning data, a RAG corpus, agent memory, or persisted tool output — so the model later produces attacker-chosen behavior across many invocations. | [→](/threats/data-poisoning.md) |
+| **Model poisoning** | security | The model itself is compromised — a backdoor baked in by a poisoned training process, or weights tampered with or substituted in the supply chain — so it behaves adversarially independently of its input. | [→](/threats/model-poisoning.md) |
 <!-- gen:threat:end -->
 
