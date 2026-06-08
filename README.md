@@ -8,6 +8,7 @@ This repository documents the foundational principles, design patterns, architec
 - **[Design patterns](/design%20patterns/)** - Structural responses that implement the principles.
 - **[Architectural primitives](/architectural%20primitives/)** - Building blocks the framework composes.
 - **[Threats](/threats/)** - Failure modes — adversarial exploits and reliability failures — that the principles, patterns, and primitives exist to mitigate.
+- **[References](/references/)** - Pointer nodes to concepts defined in a separate knowledge base (e.g. cryptographic primitives), anchoring cross-KB edges so the graph resolves at the seam.
 
 ## Reference
 
