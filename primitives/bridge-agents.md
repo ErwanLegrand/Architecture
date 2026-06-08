@@ -12,7 +12,7 @@ mitigates: ["[[data-poisoning]]"]
 
 # Bridge agents (trust-position axis)
 
-Agents that perform validated declassification: they consume `Untrusted` values and produce `Trusted` values of restricted type, through named, logged declassification functions. Bridge agents make explicit the mechanism that dual-LLM left implicit — the only path by which Edge-produced content reaches Core agents. The trust-position axis is the architectural expression of the [role-typed agent separation design pattern](/design%20patterns/role-typed-agent-separation-design-pattern.md).
+Agents that perform validated declassification: they consume `Untrusted` values and produce `Trusted` values of restricted type, through named, logged declassification functions. Bridge agents make explicit the mechanism that dual-LLM left implicit — the only path by which Edge-produced content reaches Core agents. The trust-position axis is the architectural expression of the [role-typed agent separation design pattern](/patterns/role-typed-agent-separation-design-pattern.md).
 
 Defining properties:
 

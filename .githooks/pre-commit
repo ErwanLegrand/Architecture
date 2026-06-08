@@ -7,12 +7,12 @@ set -eu
 cd "$(git rev-parse --show-toplevel)"
 fail=0
 
-# 1. architecture.md must be regenerated after any frontmatter change.
+# 1. The per-type index files must be regenerated after any frontmatter change.
 if ! python3 tools/gen-index.py --check; then
   fail=1
 fi
 
-# 2. Body Markdown links resolve (%20-encoded targets -> literal-space paths).
+# 2. Body Markdown links resolve (paths are space-free; decode any stray %20).
 broken=$(grep -rhoE '\]\(/[^)]+\)' --include='*.md' . \
   | sed -E 's/^\]\(\/(.*)\)$/\1/; s/%20/ /g' \
   | while IFS= read -r p; do [ -e "$p" ] || echo "BROKEN: $p"; done)
@@ -23,7 +23,7 @@ fi
 
 # 3. Every frontmatter [[wikilink]] relation target resolves to a file.
 unresolved=$(grep -rhoE '\[\[[^]]+\]\]' --include='*.md' \
-  "principles" "design patterns" "architectural primitives" "threats" \
+  "principles" "patterns" "primitives" "threats" "references" \
   | sed -E 's/\[\[(.*)\]\]/\1/' | sort -u \
   | while IFS= read -r id; do find . -name "$id.md" | grep -q . || echo "UNRESOLVED: [[$id]]"; done)
 if [ -n "$unresolved" ]; then
@@ -33,7 +33,7 @@ fi
 
 # 4. No forbidden verb is used as a relation key.
 if grep -rnE '^(affects|uses|helps):' --include='*.md' \
-  "principles" "design patterns" "architectural primitives" "threats"; then
+  "principles" "patterns" "primitives" "threats" "references"; then
   echo "^ FORBIDDEN relation verb"
   fail=1
 fi
