@@ -7,6 +7,7 @@ status: stable
 brief: "At a threshold or logical boundary, replace full history with a structured summary, freeing context while retaining active state."
 order: 28
 requires: ["[[compaction-boundary]]", "[[compacted-summary]]"]
+mitigates: ["[[unbounded-resource-consumption]]"]
 related_to: ["[[checkpoint-resume]]"]
 ---
 

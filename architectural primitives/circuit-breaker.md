@@ -7,6 +7,7 @@ status: stable
 brief: "Stops requests to a failing downstream after repeated failures, making persistent failure visible instead of masking it with endless retries."
 order: 17
 implements: ["[[observable-failure]]"]
+mitigates: ["[[unbounded-resource-consumption]]"]
 ---
 
 # Circuit breaker

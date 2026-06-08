@@ -6,6 +6,7 @@ domains: [performance]
 status: stable
 brief: "Output token volume is a cost driver — of price, latency, and downstream context pressure — and so a design variable, not a style preference."
 order: 20
+mitigates: ["[[unbounded-resource-consumption]]"]
 related_to: ["[[right-model-for-task]]", "[[stable-prefix]]"]
 ---
 

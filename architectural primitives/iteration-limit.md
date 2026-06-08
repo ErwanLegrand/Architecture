@@ -6,6 +6,7 @@ domains: [reliability]
 status: stable
 brief: "A hard, externally enforced ceiling on loop iterations, set by the loop infrastructure rather than the agent."
 order: 11
+mitigates: ["[[unbounded-resource-consumption]]"]
 related_to: ["[[termination-condition]]"]
 ---
 

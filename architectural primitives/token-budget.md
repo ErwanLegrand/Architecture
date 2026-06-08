@@ -6,6 +6,7 @@ domains: [performance]
 status: stable
 brief: "A declared ceiling on token expenditure for a session, operation, or invocation, enforced by the harness rather than the agent."
 order: 29
+mitigates: ["[[unbounded-resource-consumption]]"]
 related_to: ["[[context-window]]", "[[retry-budget]]"]
 ---
 

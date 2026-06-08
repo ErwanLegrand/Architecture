@@ -7,6 +7,7 @@ status: stable
 brief: "Every agent loop must have a declared, mechanically verifiable termination condition enforced by the loop infrastructure, not the agent's judgement."
 order: 13
 requires: ["[[iteration-limit]]", "[[termination-condition]]"]
+mitigates: ["[[unbounded-resource-consumption]]"]
 related_to: ["[[no-agency-without-auditability-principle]]"]
 ---
 

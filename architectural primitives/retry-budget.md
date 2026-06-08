@@ -6,6 +6,7 @@ domains: [reliability]
 status: stable
 brief: "A per-turn cap on total retry attempts across all tool calls, bounding aggregate retry cost independently of per-call limits."
 order: 15
+mitigates: ["[[unbounded-resource-consumption]]"]
 ---
 
 # Retry budget
