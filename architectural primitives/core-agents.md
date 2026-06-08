@@ -8,6 +8,7 @@ brief: "Hold sensitive capabilities and produce plans, decisions, and actions; n
 order: 4
 instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
 depends_on: ["[[bridge-agents]]"]
+mitigates: ["[[data-poisoning]]", "[[model-poisoning]]"]
 ---
 
 # Core agents (trust-position axis)
@@ -19,4 +20,4 @@ Defining properties:
 - **Holds sensitive capabilities.** Tool access, capability minting, audit-record signing, and any operation that affects state outside the agent are granted exclusively to Core agents. Edge and Bridge agents may invoke nothing of consequence directly.
 - **`Trusted` inputs only.** The type system rejects `Untrusted` values as input to Core operations at compile time. A Core agent may *reference* `Untrusted` content only through opaque handles produced by Bridge declassification, and only at the schema the Bridge committed to.
 - **Plans and decisions, not free text.** Stochastic Core agents emit structured plans in a closed DSL deserialized into a typed AST. The action space is fixed at compile time. Free-text emission from a Core agent is rejected by the framework before it can reach an effector.
-- **Compromise of a Core agent is the highest-impact failure mode.** Defenses concentrate here: deterministic implementation where possible (a deterministic Core agent is not subject to the suborned model principle); strict provenance enforcement on inputs; output validation via the Byzantine pattern; quorum or independent verification for high-stakes decisions.
+- **Compromise of a Core agent is the highest-impact failure mode.** Defenses concentrate here: deterministic implementation where possible (a deterministic Core agent is not subject to the suborned model principle); strict provenance enforcement on inputs; output validation via the Byzantine pattern; quorum or independent verification for high-stakes decisions. These same controls bound a poisoned Core model: a deterministic Core agent runs no model to poison, strict provenance keeps poisoned data out, and quorum or independent verification exposes a backdoor that a single instance would not.

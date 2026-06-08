@@ -7,6 +7,7 @@ status: stable
 brief: "Perform validated, logged declassification from `Untrusted` to `Trusted` of restricted type; the only path by which Edge-produced content reaches Core agents."
 order: 6
 instantiates: ["[[role-typed-agent-separation-design-pattern]]"]
+mitigates: ["[[data-poisoning]]"]
 ---
 
 # Bridge agents (trust-position axis)
@@ -16,7 +17,7 @@ Agents that perform validated declassification: they consume `Untrusted` values 
 Defining properties:
 
 - **Declassification capability only.** A Bridge agent's sole authority is to invoke declassification functions for specific schemas. It does not hold tool-invocation capabilities and does not produce free-form output that any downstream agent will act on directly.
-- **Schema-bounded promotion.** Each declassification function accepts an `Untrusted` value, validates it against a closed schema (strict parsing, structural checks, allowed-value enumeration, bounded sizes), and emits a `Trusted` value of a specific type. Promotion outside the schema is impossible by construction.
+- **Schema-bounded promotion.** Each declassification function accepts an `Untrusted` value, validates it against a closed schema (strict parsing, structural checks, allowed-value enumeration, bounded sizes), and emits a `Trusted` value of a specific type. Promotion outside the schema is impossible by construction. Poisoned content that violates the schema is rejected at this boundary; content that conforms is still treated as `Untrusted` in substance, which is part of why declassification is kept rare.
 - **Deterministic by default.** Declassification logic is a natural fit for deterministic agents: schema validation, parsing into closed types, structural and bounds checks are deterministic operations. A stochastic Bridge agent is permitted but is itself subject to the suborned model principle; any declassification a stochastic Bridge performs must be checked by deterministic code before the `Trusted` value is released. Some workloads — semantic extraction from natural-language content, multilingual interpretation, content classification at scale — genuinely require stochastic Bridges, and the framework permits them with the deterministic re-check constraint. Deployments operating at the highest security tier may additionally ban stochastic Bridges entirely as a policy decision; this is a deployment-time configuration, not a framework-level prohibition.
 - **Logged and rare.** Every declassification is recorded in the audit log with the source value's provenance lineage, the function invoked, and the resulting `Trusted` value. A system with many declassification points is a design smell; declassification should be rare and concentrated, because each one is a point at which attacker-influenced content can be promoted.
 

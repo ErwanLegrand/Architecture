@@ -27,6 +27,7 @@ Definitions in this repository are **normative**. They are cited from other comp
 /design patterns/            # one file per pattern
 /architectural primitives/   # one file per primitive
 /threats/                    # one file per threat / failure mode
+/references/                 # pointer nodes to concepts defined in another KB (not indexed)
 architecture.md              # index (generated tables) — see tools/gen-index.py
 tools/gen-index.py           # regenerates the architecture.md tables from frontmatter
 .githooks/pre-commit         # blocks commits when architecture.md is stale or links break
@@ -49,7 +50,7 @@ Each definition file begins with YAML frontmatter carrying its metadata and its 
 ---
 id: write-ahead-audit              # canonical node key; equals the filename stem
 title: Write-ahead audit           # equals the H1, verbatim
-type: principle | pattern | primitive | threat   # equals the containing folder
+type: principle | pattern | primitive | threat | reference   # equals the containing folder
 domains: [security]                # one or more of: security, reliability, performance — list a domain ONLY where the body already makes that claim
 status: draft | stable
 brief: "One-sentence summary; source of the architecture.md index row."
@@ -62,7 +63,7 @@ implements: ["[[no-agency-without-auditability-principle]]"]
 Rules:
 
 - `brief` and `order` drive the generated `architecture.md` tables (see "The architecture.md index is generated"). `brief` is the single source of the index row; `order` is the integer position within the type group.
-- One top-level key per relation verb; the value is a YAML list of `[[wikilinks]]`, even for a single target. Each `[[target]]` is another file's `id` (its kebab filename stem); basenames are unique across the four folders, so the bare stem resolves.
+- One top-level key per relation verb; the value is a YAML list of `[[wikilinks]]`, even for a single target. Each `[[target]]` is another file's `id` (its kebab filename stem); basenames are unique across the concept folders (`references/` included), so the bare stem resolves.
 - Author the **forward** direction only. Inverse edges (`implemented_by`, `constrained_by`, …) are computed — by Breadcrumbs in Obsidian and by the ingestion loader — never written by hand. Single source of truth; no materialized back-references.
 - A relation must reflect a claim the prose already makes. To add an edge the prose does not yet support, extend the prose (one sentence, in the definition's voice — see "Normative wording") rather than asserting an ungrounded edge.
 
@@ -76,6 +77,12 @@ Controlled verb vocabulary (forward forms only; use nothing else):
 - **forbidden** — `affects`, `uses`, `helps`, "is related to" (too vague to be an edge)
 
 Threats are the failure modes the other concepts defend against. The mitigation edge is authored **forward** as `mitigates` on the mitigating principle, pattern, or primitive (e.g. a pattern file lists `mitigates: ["[[confused-deputy-problem]]"]`); the threat file carries only the implied `mitigated_by` inverse, never written by hand. A more specific threat relates to a more general one with `specializes` (e.g. prompt-injection `specializes` confused-deputy-problem).
+
+### Reference nodes (cross-knowledge-base seams)
+
+Some concepts this framework depends on are defined in a *separate* knowledge base — cryptographic primitives, for instance, belong to cryptography engineering, which is kept as its own KB so this one can leave crypto implicit. Rather than import their content, the repository carries a thin **reference node** under `/references/` so that in-vault edges to them resolve and the graph does not dangle at the seam.
+
+A reference node uses `type: reference` and carries `id`, `title`, `domains`, `status`, `brief`, and an `external_ref` field naming the owning KB and node id (e.g. `external_ref: "cryptography-engineering:merkle-tree"`). It is exempt from `order` and is **not** included in the generated `architecture.md` index — `tools/gen-index.py` reads only the four concept folders and ignores `references/`. It links out by name in prose only — never via a repo-absolute `/…` link — and carries no outgoing relation wikilinks: edges are authored **forward from the in-scope concept toward the reference** (e.g. `model-attestation` lists `requires: ["[[cryptographic-hash]]"]`), grounded in that concept's prose at the altitude of the capability it depends on, with the construction left to the external KB.
 
 ### Visualizing the graph in Obsidian (Breadcrumbs)
 
