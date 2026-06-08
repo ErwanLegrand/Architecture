@@ -7,6 +7,7 @@ status: stable
 brief: "Each agent receives only the context slice its task requires; no subagent's reasoning trace is visible to another."
 order: 17
 requires: ["[[orchestrator]]"]
+mitigates: ["[[unbounded-resource-consumption]]"]
 composes_with: ["[[least-privilege-principle]]"]
 ---
 
